@@ -1,31 +1,31 @@
 [
     {
         "id": 1,
-        "imagePath": "/images/B_Dome.jpeg",
+        "imagePath": "/static/B_Dome.jpeg",
         "locationName": "B Dome",
         "coordinates": [15.392514, 73.880434]
     },
     {
         "id": 2,
-        "imagePath": "/images/NAB.jpeg",
+        "imagePath": "/static/NAB.jpeg",
         "locationName": "NAB",
         "coordinates": [15.391378, 73.882467]
     },
     {
         "id": 3,
-        "imagePath": "/images/Obs.jpeg",
+        "imagePath": "/static/Obs.jpeg",
         "locationName": "Obs",
         "coordinates": [15.391206, 73.882479]
     },
     {
         "id": 4,
-        "imagePath": "/images/D_Classroom.jpeg",
+        "imagePath": "/static/D_Classroom.jpeg",
         "locationName": "D_Classroom",
         "coordinates": [15.392373, 73.881936]
     },
     {
         "id": 5,
-        "imagePath": "/images/Subspot.jpeg",
+        "imagePath": "/static/Subspot.jpeg",
         "locationName": "Subspot",
         "coordinates": [15.391528, 73.880660]
     }

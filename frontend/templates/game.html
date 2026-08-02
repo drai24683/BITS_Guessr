@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Started</title>
+</head>
+<body align="center">
+    <h1 align="center">Game Started</h1>
+    <p>Player: {{game.player.name}}</p>
+    <p>Round {{game.current_round.number}}/{{game.MAX_ROUNDS}}</p>
+    <img src="{{game.current_round.challenge.image_path}}" alt="Challenge Image" height="500px">
+    <br></br>
+    <form action="/round_result" method="POST">
+        <label for="guess">Enter your guess (latitude,longitude):</label>
+        <input type="text" name="guess" placeholder="latitude,longitude" required>
+        <button type="submit">Submit Guess</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Started</title>
+</head>
+<body>
+    <h1 align="center">Round Result</h1>
+    <h3 align="right">Player: {{game.player.name}}</h3>
+    <form action="/" method="GET" align="right">
+        <button type="submit">Home</button>
+    </form>
+    <p>Round {{game.current_round.number}}</p>
+    <p>Distance: {{game.current_round.distance}} meters</p>
+    <p>Score: {{game.current_round.score}}</p>
+    <form action="/next_round" method="POST">
+        <button type="submit">Next Round</button>
+    </form>
+</body>
+</html>
