@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Game Started</title>
+    <title>Round Result</title>
 </head>
 <body>
     <h1 align="center">Round Result</h1>
@@ -13,7 +13,7 @@
     <p>Distance: {{game.current_round.distance}} meters</p>
     <p>Score: {{game.current_round.score}}</p>
     <form action="/next_round" method="POST">
-        <button type="submit">Next Round</button>
+        <button id="nextBtn" type="submit" autofocus>Next Round</button>
     </form>
 </body>
 </html>

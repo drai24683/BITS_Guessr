@@ -31,8 +31,8 @@ class GameSession:
             location_name=challenge.get('locationName')
         )
 
-    def submit_guess(self, lat, lon):
-        self.current_round.submit_guess((lat, lon))
+    def submit_guess(self, lat, lng):
+        self.current_round.submit_guess(lat, lng)
         self.current_round.end_round()
         self.total_score += self.current_round.score
 

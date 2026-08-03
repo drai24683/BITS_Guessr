@@ -37,9 +37,8 @@ async def start_game(request: Request, player_name: str = Form(...)):
     )
 
 @app.post("/round_result/", response_class=HTMLResponse)
-async def round_result(request: Request, guess: str = Form(...)):
-    lat, lon = map(float, guess.split(','))
-    game.submit_guess(lat,lon)
+async def round_result(request: Request, lat: float = Form(...), lng: float = Form(...)):
+    game.submit_guess(lat,lng)
     if game.current_round.status == GameStatus.COMPLETED:
         return templates.TemplateResponse(
             request=request,

@@ -1,18 +1,205 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Game Started</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITSGuessr</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        img{
+            margin-bottom: 20px;
+        }
+
+        #openMapBtn {
+            padding: 10px 20px;
+            margin: 20px;
+            cursor: pointer;
+        }
+
+        /* Modal */
+
+        #mapModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+        }
+
+        #map {
+            width: 80%;
+            height: 70%;
+            margin: 4% auto 0;
+
+            border-radius: 12px;
+            overflow: hidden;
+
+            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+        }
+
+        #submitBtn {
+            width: 80%;                 /* Same width as map */
+            margin: 15px auto 0;
+            display: block;
+
+            padding: 12px 20px;
+
+            background: #2e7d32;
+            color: white;
+
+            border: none;
+            border-radius: 10px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+        #submitBtn:hover:not(:disabled) {
+            background: #388e3c;
+            transform: translateY(-1px);
+        }
+
+        #submitBtn:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+
+        #submitBtn:disabled {
+            background: #9e9e9e;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        #closeMapBtn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+
+            padding: 10px 18px;
+
+            background: #d32f2f;
+            color: white;
+
+            border: none;
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            transition: background 0.2s;
+        }
+
+        #closeMapBtn:hover {
+            background: #c62828;
+        }
+
+
+    </style>
 </head>
-<body align="center">
-    <h1 align="center">Game Started</h1>
-    <p>Player: {{game.player.name}}</p>
-    <p>Round {{game.current_round.number}}/{{game.MAX_ROUNDS}}</p>
-    <img src="{{game.current_round.challenge.image_path}}" alt="Challenge Image" height="500px">
-    <br></br>
-    <form action="/round_result" method="POST">
-        <label for="guess">Enter your guess (latitude,longitude):</label>
-        <input type="text" name="guess" placeholder="latitude,longitude" required>
-        <button type="submit">Submit Guess</button>
-    </form>
+
+<body>
+    <h2>Game Started</h2>
+    <p>Player: {{ game.player.name }}</p>
+    <p>
+        Round {{ game.current_round.number }}/{{ game.MAX_ROUNDS }}
+    </p>
+    <img
+        src="{{ game.current_round.challenge.image_path }}"
+        alt="Challenge Image"
+        height="500"
+    >
+
+    <button id="openMapBtn" autofocus>
+        Open Map
+    </button>
+
+    <!-- Map Modal -->
+
+    <div id="mapModal">
+        <button id="closeMapBtn">
+            Close
+        </button>
+        <div id="map"></div>
+        <form action="/round_result" method="POST">
+
+            <input type="hidden" id="lat" name="lat">
+            <input type="hidden" id="lng" name="lng">
+
+            <button type="submit" id="submitBtn" disabled>
+                Select Location
+            </button>
+        </form>
+    </div>
+
+    <script>
+
+        let map = null;
+        let marker = null;
+        const openBtn = document.getElementById("openMapBtn");
+        const closeBtn = document.getElementById("closeMapBtn");
+        const modal = document.getElementById("mapModal");
+        const submitBtn = document.getElementById("submitBtn");
+        const latInput = document.getElementById("lat");
+        const lngInput = document.getElementById("lng");
+
+        openBtn.addEventListener("click", () => {
+            modal.style.display = "block";
+            submitBtn.focus();
+
+            if (!map) {
+
+                map = L.map("map").setView(
+                    [15.392514, 73.880434],
+                    15
+                );
+
+                L.tileLayer(
+                    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    {
+                        attribution:
+                            "&copy; OpenStreetMap contributors"
+                    }
+                ).addTo(map);
+
+                map.on('click', handleMapClick);
+
+            } else {
+                map.invalidateSize();
+            }
+
+        });
+
+        function handleMapClick(e) {
+            if (marker) {
+                marker.remove();
+            }
+            latInput.value = e.latlng.lat;
+            lngInput.value = e.latlng.lng;
+            marker = L.marker(e.latlng).addTo(map);
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Guess';
+            submitBtn.focus();
+        }
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                modal.style.display = "none";
+                openBtn.focus();
+            }
+        });
+    </script>
 </body>
 </html>
