@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+Game Result
+{% endblock %}
+
+{% block content %}
+
+<div class="page-actions">
+
+    <form action="/" method="GET">
+
+        <button id="homeBtn" type="submit" autofocus>
+            Home
+        </button>
+
+    </form>
+
+</div>
+
+<div class="result-card">
+
+    <h2>🎉 Game Complete!</h2>
+
+    <div class="result-info">
+
+        <div class="result-row">
+
+            <span class="label">Player</span>
+
+            <span class="value">
+                {{ game.player.name }}
+            </span>
+
+        </div>
+
+        <div class="result-row">
+
+            <span class="label">Total Score</span>
+
+            <span class="value highlight">
+                {{ game.total_score }}
+            </span>
+
+        </div>
+
+        <div class="result-row">
+
+            <span class="label">Rounds Played</span>
+
+            <span class="info">
+                {{ game.rounds|length }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <h3>Round Summary</h3>
+
+    <div class="round-summary">
+
+        {% for round in game.rounds %}
+
+        <div class="summary-row">
+
+            <span>
+                <strong>Round {{ round.number }}</strong>
+            </span>
+
+            <span class="highlight">
+                {{ round.score }} pts
+            </span>
+
+            <span class="info">
+                {{ round.distance }} m
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/game-result.js"></script>
+{% endblock %}

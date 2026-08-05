@@ -32,9 +32,11 @@ class GameSession:
         )
 
     def submit_guess(self, lat, lng):
+        if self.current_round.status == GameStatus.COMPLETED:
+            return
         self.current_round.submit_guess(lat, lng)
         self.current_round.end_round()
-        self.total_score += self.current_round.score
+        self.total_score = sum(round.score for round in self.rounds)
 
     def next_round(self):
         if len(self.rounds) < self.MAX_ROUNDS:

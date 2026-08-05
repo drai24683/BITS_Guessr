@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="/static/images/favicon.png">
+
+    <title>
+        {% block title %}
+            BITSGuessr
+        {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div id="background"></div>
+
+    <!-- White overlay -->
+    <div id="overlay"></div>
+
+    <header>
+
+<h1>
+    B<img
+        src="/static/images/I.png"
+        class="logo-icon"
+        alt="BITSGuessr Logo"
+    >TSGuessr
+</h1>
+        <div class="brand-bar">
+
+            <div class="gold"></div>
+
+            <div class="sky"></div>
+
+            <div class="red"></div>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <!-- Global scripts -->
+
+    <script src="/static/js/background.js"></script>
+
+    <!-- Page-specific scripts -->
+
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+</html>

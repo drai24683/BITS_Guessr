@@ -1,31 +1,31 @@
 [
     {
         "id": 1,
-        "imagePath": "/static/B_Dome.jpeg",
+        "imagePath": "/static/images/challenges/B_Dome.jpeg",
         "locationName": "B Dome",
         "coordinates": [15.392514, 73.880434]
     },
     {
         "id": 2,
-        "imagePath": "/static/NAB.jpeg",
+        "imagePath": "/static/images/challenges/NAB.jpeg",
         "locationName": "NAB",
         "coordinates": [15.391378, 73.882467]
     },
     {
         "id": 3,
-        "imagePath": "/static/Obs.jpeg",
+        "imagePath": "/static/images/challenges/Obs.jpeg",
         "locationName": "Obs",
         "coordinates": [15.391206, 73.882479]
     },
     {
         "id": 4,
-        "imagePath": "/static/D_Classroom.jpeg",
+        "imagePath": "/static/images/challenges/D_Classroom.jpeg",
         "locationName": "D_Classroom",
         "coordinates": [15.392373, 73.881936]
     },
     {
         "id": 5,
-        "imagePath": "/static/Subspot.jpeg",
+        "imagePath": "/static/images/challenges/Subspot.jpeg",
         "locationName": "Subspot",
         "coordinates": [15.391528, 73.880660]
     }

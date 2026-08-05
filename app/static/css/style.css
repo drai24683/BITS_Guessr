@@ -1,0 +1,839 @@
+/* =====================================================
+   BITSGuessr Theme
+===================================================== */
+
+:root {
+
+    /* ---------- Brand ---------- */
+
+    --navy: #231F72;
+    --gold: #F3A720;
+    --sky: #74C3EB;
+    --red: #EB1C25;
+
+    /* ---------- UI ---------- */
+
+    --background: #EEF3F8;
+
+    --surface: rgba(255,255,255,.72);
+
+    --text: #202020;
+
+    --text-light: #666666;
+
+    --shadow: rgba(0,0,0,.18);
+
+    --radius: 16px;
+}
+
+
+/* =====================================================
+   Global
+===================================================== */
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+
+    margin:0;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    color:var(--text);
+
+    text-align:center;
+
+    background:var(--background);
+
+}
+
+main{
+
+    max-width:1100px;
+
+    margin:40px auto;
+
+    padding:20px;
+
+}
+
+img{
+
+    max-width:100%;
+
+    border-radius:var(--radius);
+
+    margin-bottom:20px;
+
+    box-shadow:0 10px 30px var(--shadow);
+
+}
+
+h1{
+
+    color:var(--navy);
+
+}
+
+h2{
+    color:var(--text);
+}
+
+p{
+
+    line-height:1.6;
+
+}
+
+
+/* =====================================================
+   Background
+===================================================== */
+
+#background{
+
+    position:fixed;
+
+    inset:0;
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    filter:blur(2px);
+
+    transform:scale(1.05);
+
+    z-index:-2;
+
+}
+
+#overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(255, 255, 255, 0.5);
+
+    z-index:-1;
+
+}
+
+
+/* =====================================================
+   Header
+===================================================== */
+
+header{
+
+    background:var(--navy);
+
+    padding:22px;
+
+    box-shadow:0 4px 18px var(--shadow);
+
+}
+
+header h1{
+
+    margin:0;
+
+    color:white;
+
+    letter-spacing:1px;
+
+}
+
+.logo-icon{
+
+    width:32px;
+
+    height:32px;
+
+    vertical-align:middle;
+
+    vertical-align:-24px;
+
+}
+
+/* =====================================================
+   BITS Brand Bar
+===================================================== */
+
+.brand-bar{
+
+    display:flex;
+
+    width:180px;
+
+    height:6px;
+
+    margin:12px auto 0;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+}
+
+.brand-bar .gold{
+
+    flex:1;
+
+    background:var(--gold);
+
+}
+
+.brand-bar .sky{
+
+    flex:1;
+
+    background:var(--sky);
+
+}
+
+.brand-bar .red{
+
+    flex:1;
+
+    background:var(--red);
+
+}
+
+
+/* =====================================================
+   Card
+===================================================== */
+
+.homeCard{
+
+    background:rgba(255,255,255,.4);
+
+    border-radius:var(--radius);
+
+    backdrop-filter:blur(4px);
+
+    padding:35px;
+
+    box-shadow:0 12px 28px var(--shadow);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+
+}
+
+.card {
+
+    background: var(--surface);
+
+    border-radius: var(--radius);
+
+    padding: 35px;
+
+    box-shadow: 0 12px 28px var(--shadow);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+
+
+}
+
+.card ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:30px 0;
+
+}
+
+.card li{
+
+    background:rgba(255,255,255,.45);
+
+    margin:12px 0;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    border-left:6px solid var(--sky);
+
+    text-align:left;
+
+}
+
+
+/* =====================================================
+   Buttons
+===================================================== */
+
+button{
+
+    padding:12px 24px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:.2s;
+
+}
+
+
+/* ---------- Start Game ---------- */
+
+#startBtn{
+
+    background:var(--gold);
+
+    color:white;
+
+}
+
+#startBtn:hover{
+
+    filter:brightness(1.05);
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ---------- Open Map ---------- */
+
+#openMapBtn{
+
+    background:var(--sky);
+
+    color:white;
+
+    margin:20px;
+
+}
+
+#openMapBtn:hover{
+
+    filter:brightness(1.05);
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ---------- Submit Guess ---------- */
+
+#submitBtn{
+
+    width:80%;
+
+    margin:15px auto 0;
+
+    display:block;
+
+    background:var(--gold);
+
+    color:white;
+
+}
+
+#submitBtn:hover:not(:disabled){
+
+    filter:brightness(1.05);
+
+    transform:translateY(-2px);
+
+}
+
+#submitBtn:active:not(:disabled){
+
+    transform:translateY(1px);
+
+}
+
+#submitBtn:disabled{
+
+    background:#B8B8B8;
+
+    color:white;
+
+    cursor:not-allowed;
+
+}
+
+
+/* ---------- Next Round ---------- */
+
+#nextBtn{
+
+    background:var(--sky);
+
+    color:white;
+
+}
+
+#nextBtn:hover{
+
+    filter:brightness(1.05);
+
+}
+
+
+/* ---------- Home ---------- */
+
+#homeBtn{
+
+    background:var(--red);
+
+    color:white;
+
+}
+
+#homeBtn:hover{
+
+    filter:brightness(1.08);
+
+}
+
+
+/* ---------- Close ---------- */
+
+#closeMapBtn{
+
+    position:absolute;
+
+    top:20px;
+
+    right:20px;
+
+    background:var(--red);
+
+    color:white;
+
+}
+
+#closeMapBtn:hover{
+
+    filter:brightness(.92);
+
+}
+
+
+/* =====================================================
+   Map Modal
+===================================================== */
+
+#mapModal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+
+    z-index:1000;
+
+}
+
+#map{
+
+    width:80%;
+
+    height:70%;
+
+    margin:4% auto 0;
+
+    border-radius:var(--radius);
+
+    overflow:hidden;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.35);
+
+}
+
+
+/* =====================================================
+   Utility Classes
+===================================================== */
+
+.highlight{
+
+    color:var(--gold);
+
+    font-weight:bold;
+
+}
+
+.info{
+
+    color:var(--sky);
+
+    font-weight:bold;
+
+}
+
+/* ===========================
+   Game Layout
+=========================== */
+
+.game-layout{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:50px;
+
+    flex-wrap:wrap;
+
+}
+
+.image-section{
+
+    flex:2;
+
+}
+
+.image-section img{
+
+    width:auto;
+
+    max-height:500px;
+
+    height:100%;
+
+}
+
+.info-section{
+
+    flex:1;
+
+    min-width:250px;
+
+    text-align:left;
+
+}
+
+.info-section h2{
+
+    margin-top:0;
+
+}
+
+.info-section p{
+
+    font-size:1.2rem;
+
+}
+
+.info-section button{
+
+    margin-top:20px;
+
+}
+
+/* ===========================
+   Information Card
+=========================== */
+
+.info-card{
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    padding:35px;
+
+    box-shadow:0 10px 28px var(--shadow);
+
+    flex:1 1;
+
+    max-width:280px;
+
+    width:auto;
+
+    height:auto;
+
+    text-align:left;
+
+}
+
+.info-card h2{
+
+    margin-top:0;
+
+    margin-bottom:30px;
+
+    color:var(--red);
+
+}
+
+.stat{
+
+    margin-bottom:24px;
+
+}
+
+.label{
+
+    display:block;
+
+    font-size:.75rem;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    color:var(--text-light);
+
+    margin-bottom:6px;
+
+}
+
+.value{
+
+    display:block;
+
+    font-size:1.8rem;
+
+    font-weight:bold;
+
+    color:var(--red);
+
+}
+
+/* ===========================
+   Index Page
+=========================== */
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    align-items:center;
+
+}
+
+label{
+
+    font-weight:bold;
+
+    color:var(--navy);
+
+}
+
+.enterName{
+
+    color:var(--red);
+
+}
+
+input{
+
+    width:100%;
+
+    max-width:350px;
+
+    padding:12px 16px;
+
+    font-size:16px;
+
+    color:var(--sky);
+
+    border:2px solid #d8d8d8;
+
+    border-radius:10px;
+
+    outline:none;
+
+    transition:.2s;
+
+}
+
+input:focus{
+
+    border-color:var(--sky);
+
+    box-shadow:0 0 0 3px rgba(116,195,235,.25);
+
+}
+
+/* ===========================
+   Round Result
+=========================== */
+
+.page-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    max-width:900px;
+
+    margin:0 auto 25px;
+
+}
+
+.result-card{
+
+    max-width:520px;
+
+    margin:0 auto;
+
+    padding:40px;
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    backdrop-filter:blur(5px);
+
+    box-shadow:0 12px 28px var(--shadow);
+
+}
+
+.result-info{
+
+    margin:35px 0;
+
+}
+
+.result-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px 0;
+
+    border-bottom:1px solid rgba(0,0,0,.08);
+
+}
+
+.result-row:last-child{
+
+    border-bottom:none;
+
+}
+
+.label{
+
+    font-weight:bold;
+
+    color:var(--text-light);
+
+    letter-spacing:.5px;
+
+}
+
+.value{
+
+    font-size:1.15rem;
+
+    font-weight:600;
+
+}
+
+.highlight{
+
+    color:var(--gold);
+
+}
+
+.info{
+
+    color:var(--sky);
+
+}
+
+/* ===========================
+   Game Result
+=========================== */
+
+.round-summary{
+
+    margin-top:30px;
+
+}
+
+.summary-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:14px 18px;
+
+    margin:10px 0;
+
+    background:rgba(255,255,255,.45);
+
+    border-left:5px solid var(--red);
+
+    border-radius:10px;
+
+}
+
+.summary-row span{
+
+    flex:1;
+
+}
+
+.summary-row span:first-child{
+
+    text-align:left;
+
+}
+
+.summary-row span:nth-child(2){
+
+    text-align:center;
+
+}
+
+.summary-row span:last-child{
+
+    text-align:right;
+
+}
+
+.signature{
+
+    text-align:right;
+
+    width:100%;
+
+    color:var(--text-light);
+
+    font-style:italic;
+
+    margin-top:30px;
+
+}

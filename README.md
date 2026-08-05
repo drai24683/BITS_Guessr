@@ -1,27 +1,42 @@
-# BitsGuessr 
-# GeoGuessr - BITS Pilani version
+# BITSGuessr
 
-A GeoGuessr-inspired web application built for the BITS Pilani Goa campus where players identify campus locations from images and place their guesses on an interactive map.
+*A GeoGuessr-inspired web application for the BITS Pilani Goa campus.*
+
+Players are shown an image captured somewhere on campus and must identify its location by placing a marker on an interactive map. The closer the guess, the higher the score.
+
+---
 
 ## Features
 
-- 🎮 Multi-round gameplay
-- 🗺️ Interactive Leaflet.js map
-- 📍 Click-to-place location guessing
+- 🎮 Five-round gameplay
+- 🗺️ Interactive campus map using Leaflet.js
+- 📍 Click-to-place guessing system
 - 📏 Distance-based scoring
-- 📸 Real campus location challenges
+- 🏆 End-of-game score summary
+- 📸 Real BITS Goa campus location challenges
+- 🎨 Responsive UI with a custom BITS-inspired theme
 - 🧩 Modular object-oriented backend
-- 🎨 Server-side rendering with Jinja2
+- 🖥️ Server-side rendering using Jinja2 templates
+
+---
 
 ## Tech Stack
+
+### Backend
 
 - Python
 - FastAPI
 - Jinja2
-- HTML/CSS
+
+### Frontend
+
+- HTML5
+- CSS3
 - JavaScript
 - Leaflet.js
 - OpenStreetMap
+
+---
 
 ## Installation
 
@@ -30,46 +45,65 @@ git clone https://github.com/yourusername/BITSGuessr.git
 cd BITSGuessr
 
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+
+# Linux / macOS
+source .venv/bin/activate
+
+# Windows
+.venv\Scripts\activate
 
 pip install -r requirements.txt
 
 uvicorn app.main:app --reload
 ```
 
-Visit:
+Open your browser and visit:
 
 ```
 http://127.0.0.1:8000
 ```
 
+---
+
 ## Project Structure
 
 ```
-app/
-├── models/
-├── data/
-├── static/
-├── utils/
-└── main.py
-
-frontend/
-└── templates/
+BITSGuessr/
+│
+├── app/
+│   ├── data/
+│   ├── models/
+│   ├── static/
+│   │   ├── css/
+│   │   ├── images/
+│   │   ├── js/
+│   │   └── background/
+│   ├── templates/
+│   ├── utils/
+│   └── main.py
+│
+├── requirements.txt
+└── README.md
 ```
 
-## Roadmap
+---
 
-- [ ] Reveal correct location after each round
-- [ ] Display both guess and actual location on the map
+
+## Future Plans
+
+- [ ] Reveal the correct location after every round
+- [ ] Show both guessed and actual locations on the map
+- [ ] Draw a line between the guess and the correct location
 - [ ] Timer mode
-- [ ] Leaderboard
-- [ ] Responsive UI
-- [ ] Multiplayer support
+- [ ] Persistent leaderboard
+- [ ] User authentication
+- [ ] Multiplayer mode
+- [ ] React frontend
+- [ ] Database support (SQLite/PostgreSQL)
+- [ ] Deployment
 
-## Screenshots
-
-*Coming soon.*
+---
 
 ## Author
 
-Divyanshu Rai
+**Divyanshu Rai**

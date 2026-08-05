@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}
+Game
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="game-layout">
+
+    <div class="image-section">
+
+        <img
+            src="{{ game.current_round.challenge.image_path }}"
+            alt="Challenge Image"
+        >
+
+    </div>
+
+    <div class="info-card">
+
+        <div class="stat">
+
+            <span class="label">PLAYER</span>
+
+            <span class="value">{{ game.player.name }}</span>
+
+        </div>
+
+        <div class="stat">
+
+            <span class="label">ROUND</span>
+
+            <span class="value">
+                <span class="highlight">
+                    {{ game.current_round.number }}
+                / {{ game.MAX_ROUNDS }}
+                </span>
+            </span>
+
+        </div>
+
+        <button id="openMapBtn" autofocus>
+            Open Map
+        </button>
+
+    </div>
+
+</div>
+
+<div id="mapModal">
+
+    <button id="closeMapBtn">
+        Close
+    </button>
+
+    <div id="map"></div>
+
+    <form action="/round_result" method="POST">
+
+        <input
+            type="hidden"
+            id="lat"
+            name="lat"
+        >
+
+        <input
+            type="hidden"
+            id="lng"
+            name="lng"
+        >
+
+        <button
+            type="submit"
+            id="submitBtn"
+            disabled
+        >
+            Select Location
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script src="/static/js/game.js"></script>
+
+{% endblock %}
