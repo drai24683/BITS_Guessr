@@ -6,19 +6,16 @@ Round Result
 
 {% block content %}
 
-<div class="page-actions">
+<div class="result-layout">
+    <div
+        id="resultMap"
+        data-guess-lat="{{ game.current_round.guess.coordinates[0] }}"
+        data-guess-lng="{{ game.current_round.guess.coordinates[1] }}"
+        data-answer-lat="{{ game.current_round.challenge.coordinates[0] }}"
+        data-answer-lng="{{ game.current_round.challenge.coordinates[1] }}">
+    </div>
 
-    <form action="/" method="GET">
-
-        <button id="homeBtn" type="submit">
-            Home
-        </button>
-
-    </form>
-
-</div>
-
-<div class="result-card">
+    <div class="result-card">
 
     <h2>Round Complete!</h2>
 
@@ -60,10 +57,24 @@ Round Result
 
     </form>
 
+    </div>
+</div>
+
+<div class="page-actions">
+
+    <form action="/" method="GET">
+
+        <button id="homeBtn" type="submit">
+            Home
+        </button>
+
+    </form>
+
 </div>
 
 {% endblock %}
 
 {% block scripts %}
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="/static/js/round-result.js"></script>
 {% endblock %}

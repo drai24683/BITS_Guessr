@@ -696,9 +696,63 @@ input:focus{
 
 }
 
+.result-layout{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:center;
+
+    gap:40px;
+
+    margin:10px;
+
+    flex-wrap:wrap;
+
+}
+
+#resultMap{
+
+    flex:2;
+
+    min-width:500px;
+
+    height:450px;
+
+    border-radius:var(--radius);
+
+    overflow:hidden;
+
+    box-shadow:0 10px 28px var(--shadow);
+
+}
+
 .result-card{
 
-    max-width:520px;
+    flex:1;
+
+    min-width:320px;
+
+    max-width:380px;
+
+    max-height:450px;
+
+    margin:0 auto;
+
+    padding:40px;
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    backdrop-filter:blur(5px);
+
+    box-shadow:0 12px 28px var(--shadow);
+
+}
+
+.game-result{
 
     margin:0 auto;
 
