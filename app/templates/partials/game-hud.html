@@ -1,0 +1,95 @@
+<div class="game-hud">
+
+    <div class="hud-section">
+
+        <span class="hud-label">
+            Total
+        </span>
+
+        <span class="hud-value">
+            {{ game.total_score }}
+        </span>
+
+    </div>
+
+    <div class="hud-section">
+
+        {% if show_result_stats %}
+
+        <span class="hud-label">
+            Score
+        </span>
+
+        <span class="hud-value">
+
+                +{{ game.current_round.score }}
+
+        </span>
+
+        {% endif %}
+
+    </div>
+
+    <div class="hud-section">
+
+        <span class="hud-label">
+            Round
+        </span>
+
+        <span class="hud-value">
+            {{ game.current_round.number }}/{{ game.MAX_ROUNDS }}
+        </span>
+
+    </div>
+
+    <div class="hud-section">
+
+        {% if show_result_stats %}
+
+        <span class="hud-label">
+            Distance
+        </span>
+
+        <span class="hud-value">
+
+                {{ game.current_round.distance }} m
+
+        </span>
+
+        {% endif %}
+
+    </div>
+
+    {% if false %}
+
+    <div class="hud-section">
+
+        <span class="hud-label">
+            Timer
+        </span>
+
+        <span class="hud-value">
+            --
+        </span>
+
+    </div>
+
+    {% endif %}
+
+    <div class="hud-section">
+
+        <form action="/" method="GET">
+
+            <button
+                class="hud-button"
+                type="submit">
+
+                {{ game.player.name}} 🦆
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

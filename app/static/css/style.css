@@ -59,18 +59,6 @@ main{
 
 }
 
-img{
-
-    max-width:100%;
-
-    border-radius:var(--radius);
-
-    margin-bottom:20px;
-
-    box-shadow:0 10px 30px var(--shadow);
-
-}
-
 h1{
 
     color:var(--navy);
@@ -314,27 +302,6 @@ button{
 }
 
 
-/* ---------- Open Map ---------- */
-
-#openMapBtn{
-
-    background:var(--sky);
-
-    color:white;
-
-    margin:20px;
-
-}
-
-#openMapBtn:hover{
-
-    filter:brightness(1.05);
-
-    transform:translateY(-2px);
-
-}
-
-
 /* ---------- Submit Guess ---------- */
 
 #submitBtn{
@@ -410,64 +377,6 @@ button{
 }
 
 
-/* ---------- Close ---------- */
-
-#closeMapBtn{
-
-    position:absolute;
-
-    top:20px;
-
-    right:20px;
-
-    background:var(--red);
-
-    color:white;
-
-}
-
-#closeMapBtn:hover{
-
-    filter:brightness(.92);
-
-}
-
-
-/* =====================================================
-   Map Modal
-===================================================== */
-
-#mapModal{
-
-    display:none;
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.65);
-
-    z-index:1000;
-
-}
-
-#map{
-
-    width:80%;
-
-    height:70%;
-
-    margin:4% auto 0;
-
-    border-radius:var(--radius);
-
-    overflow:hidden;
-
-    box-shadow:0 12px 35px rgba(0,0,0,.35);
-
-}
-
-
 /* =====================================================
    Utility Classes
 ===================================================== */
@@ -496,29 +405,11 @@ button{
 
     display:flex;
 
-    align-items:center;
-
     justify-content:center;
 
-    gap:50px;
+    gap:40px;
 
     flex-wrap:wrap;
-
-}
-
-.image-section{
-
-    flex:2;
-
-}
-
-.image-section img{
-
-    width:auto;
-
-    max-height:500px;
-
-    height:100%;
 
 }
 
@@ -712,11 +603,87 @@ input:focus{
 
 }
 
-#resultMap{
 
-    flex:2;
+/* =====================================================
+   Map Modal
+===================================================== */
 
-    min-width:500px;
+/* ===========================
+   Image
+=========================== */
+
+.image-section{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:flex .3s ease;
+
+}
+
+.image-section img{
+
+    width:auto;
+
+    max-height:500px;
+
+    object-fit:contain;
+
+    border-radius:var(--radius);
+
+    box-shadow:0 10px 30px var(--shadow);
+
+    transition:
+        max-height .3s ease,
+        box-shadow .3s ease;
+
+}
+
+.image-section.shrink img{
+
+    max-height:200px;
+
+}
+
+
+/* ===========================
+   Map
+=========================== */
+
+#mapModal{
+
+    flex:content;
+
+    width:100%;
+
+    height:500px;
+
+    position:relative;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:flex .3s ease;
+
+}
+
+#mapModal.expand{
+
+    flex:1.8;
+
+    height:450px;
+
+}
+
+#map{
+
+    width:100%;
 
     height:450px;
 
@@ -725,6 +692,103 @@ input:focus{
     overflow:hidden;
 
     box-shadow:0 10px 28px var(--shadow);
+
+    cursor:crosshair;
+
+    transition:height .3s ease;
+
+}
+
+
+/* ===========================
+   Resize Map Button
+=========================== */
+
+#resizeMapBtn{
+
+    position:absolute;
+
+    top:4px;
+
+    right:16px;
+
+    z-index:1001;
+
+    width:20px;
+
+    height:20px;
+
+    background:none;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    cursor:default;
+
+    transition:.2s;
+
+}
+
+#resizeMapBtn:hover{
+
+    transform:scale(1.08);
+
+}
+
+/* ===========================
+   Round Result Layout
+=========================== */
+
+#mapModal{
+
+    flex:7;
+
+}
+
+.result-image-section{
+
+    flex:3;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:20px;
+
+}
+
+.result-image-section img{
+
+    width:auto;
+
+    max-width:100%;
+
+    max-height:450px;
+
+    border-radius:var(--radius);
+
+    box-shadow:0 10px 30px var(--shadow);
+
+}
+
+.result-image-section form{
+
+    width:100%;
+
+}
+
+#nextBtn{
+
+    width:100%;
 
 }
 
@@ -889,5 +953,113 @@ input:focus{
     font-style:italic;
 
     margin-top:30px;
+
+}
+
+/* ===========================
+   Game HUD
+=========================== */
+
+.game-hud{
+
+    display:grid;
+
+    grid-template-columns: 0.7fr 1fr 1fr 1fr 0.7fr;
+
+    align-items:center;
+
+    height:72px;
+
+    width:100%;
+
+    margin:0;
+
+    background:
+    linear-gradient(
+        90deg,
+        var(--gold) 0%,
+        var(--gold) 20%,
+
+        var(--sky) 35%,
+        var(--sky) 65%,
+
+        var(--red) 80%,
+        var(--red) 100%
+    );
+
+    color:white;
+
+    box-shadow:0 3px 12px var(--shadow);
+
+}
+
+.hud-section{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100%;
+
+}
+
+.hud-label{
+
+    font-size:.7rem;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    opacity:.6;
+
+    margin-bottom:4px;
+
+}
+
+.hud-value{
+
+    font-size:1.2rem;
+
+    font-weight:bold;
+
+}
+
+.hud-hidden{
+
+    opacity:.45;
+}
+
+.hud-button{
+
+    background:none;
+
+    border:none;
+
+    color:white;
+
+    font-size:1.15rem;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    padding:0;
+
+    transition:.15s;
+
+}
+
+.hud-button:hover{
+
+    transform:scale(1.05);
+
+    opacity:.9;
 
 }

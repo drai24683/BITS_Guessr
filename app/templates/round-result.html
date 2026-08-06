@@ -1,74 +1,57 @@
 {% extends "base.html" %}
 
+{% set show_result_stats = True %}
+
+{% include "partials/game-hud.html" %}
+
 {% block title %}
 Round Result
 {% endblock %}
 
+{% block head %}
+
+<link rel="stylesheet" href="/static/css/round-result.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+{% endblock %}
+
 {% block content %}
 
-<div class="result-layout">
-    <div
-        id="resultMap"
-        data-guess-lat="{{ game.current_round.guess.coordinates[0] }}"
-        data-guess-lng="{{ game.current_round.guess.coordinates[1] }}"
-        data-answer-lat="{{ game.current_round.challenge.coordinates[0] }}"
-        data-answer-lng="{{ game.current_round.challenge.coordinates[1] }}">
-    </div>
+<div class="game-layout">
 
-    <div class="result-card">
+    <div id="mapModal">
 
-    <h2>Round Complete!</h2>
-
-    <div class="result-info">
-
-        <div class="result-row">
-            <span class="label">Player</span>
-            <span class="value">{{ game.player.name }}</span>
-        </div>
-
-        <div class="result-row">
-            <span class="label">Round</span>
-            <span class="value highlight">
-                {{ game.current_round.number }}/{{ game.MAX_ROUNDS }}
-            </span>
-        </div>
-
-        <div class="result-row">
-            <span class="label">Distance</span>
-            <span class="value info">
-                {{ game.current_round.distance }} m
-            </span>
-        </div>
-
-        <div class="result-row">
-            <span class="label">Score</span>
-            <span class="value highlight">
-                {{ game.current_round.score }} pts
-            </span>
+        <div
+            id="map"
+            data-guess-lat="{{ game.current_round.guess.coordinates[0] }}"
+            data-guess-lng="{{ game.current_round.guess.coordinates[1] }}"
+            data-answer-lat="{{ game.current_round.challenge.coordinates[0] }}"
+            data-answer-lng="{{ game.current_round.challenge.coordinates[1] }}">
         </div>
 
     </div>
 
-    <form action="/next_round" method="POST">
+    <div class="result-image-section">
 
-        <button id="nextBtn" type="submit" autofocus>
-            Next Round →
-        </button>
+        <img
+            src="{{ game.current_round.challenge.image_path }}"
+            alt="Challenge Image"
+        >
 
-    </form>
+        <form action="/next_round" method="POST">
+
+            <button
+                id="nextBtn"
+                type="submit"
+                autofocus>
+
+                Next Round →
+
+            </button>
+
+        </form>
 
     </div>
-</div>
-
-<div class="page-actions">
-
-    <form action="/" method="GET">
-
-        <button id="homeBtn" type="submit">
-            Home
-        </button>
-
-    </form>
 
 </div>
 

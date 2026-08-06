@@ -1,0 +1,163 @@
+/* =====================================================
+   Index Layout
+===================================================== */
+
+.game-layout{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:40px;
+
+    flex-wrap:wrap;
+
+}
+
+.info-section{
+
+    flex:1;
+
+    min-width:250px;
+
+    text-align:left;
+
+}
+
+.info-section h2{
+
+    margin-top:0;
+
+}
+
+.info-section p{
+
+    font-size:1.2rem;
+
+}
+
+.info-section button{
+
+    margin-top:20px;
+
+}
+
+
+/* =====================================================
+   Information Card
+===================================================== */
+
+.info-card{
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    padding:35px;
+
+    box-shadow:0 10px 28px var(--shadow);
+
+    flex:1 1;
+
+    max-width:280px;
+
+    width:auto;
+
+    height:auto;
+
+    text-align:left;
+
+}
+
+.info-card h2{
+
+    margin-top:0;
+
+    margin-bottom:30px;
+
+    color:var(--red);
+
+}
+
+.stat{
+
+    margin-bottom:24px;
+
+}
+
+
+/* =====================================================
+   Home Form
+===================================================== */
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    align-items:center;
+
+}
+
+label{
+
+    font-weight:bold;
+
+    color:var(--navy);
+
+}
+
+.enterName{
+
+    color:var(--red);
+
+}
+
+input{
+
+    width:100%;
+
+    max-width:350px;
+
+    padding:12px 16px;
+
+    font-size:16px;
+
+    color:var(--sky);
+
+    border:2px solid #d8d8d8;
+
+    border-radius:10px;
+
+    outline:none;
+
+    transition:.2s;
+
+}
+
+input:focus{
+
+    border-color:var(--sky);
+
+    box-shadow:0 0 0 3px rgba(116,195,235,.25);
+
+}
+
+.signature{
+
+    text-align:right;
+
+    width:100%;
+
+    align-self:stretch;
+
+    color:var(--text-light);
+
+    font-style:italic;
+
+    margin-top:30px;
+
+}

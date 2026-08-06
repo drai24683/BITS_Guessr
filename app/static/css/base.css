@@ -1,0 +1,199 @@
+/* =====================================================
+   BITSGuessr Theme
+===================================================== */
+
+:root {
+
+    /* ---------- Brand ---------- */
+
+    --navy: #231F72;
+    --gold: #F3A720;
+    --sky: #74C3EB;
+    --red: #EB1C25;
+
+    /* ---------- UI ---------- */
+
+    --background: #EEF3F8;
+
+    --surface: rgba(255,255,255,.72);
+
+    --text: #202020;
+
+    --text-light: #666666;
+
+    --shadow: rgba(0,0,0,.18);
+
+    --radius: 16px;
+}
+
+
+/* =====================================================
+   Global
+===================================================== */
+
+*{
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    margin:0;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    color:var(--text);
+
+    text-align:center;
+
+    background:var(--background);
+
+}
+
+main{
+
+    max-width:1100px;
+
+    margin:40px auto;
+
+    padding:20px;
+
+}
+
+h1{
+
+    color:var(--navy);
+
+}
+
+h2{
+
+    color:var(--text);
+
+}
+
+p{
+
+    line-height:1.6;
+
+}
+
+
+/* =====================================================
+   Background
+===================================================== */
+
+#background{
+
+    position:fixed;
+
+    inset:0;
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    filter:blur(2px);
+
+    transform:scale(1.05);
+
+    z-index:-2;
+
+}
+
+#overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(255,255,255,.5);
+
+    z-index:-1;
+
+}
+
+
+/* =====================================================
+   Header
+===================================================== */
+
+header{
+
+    background:var(--navy);
+
+    padding:22px;
+
+    box-shadow:0 4px 18px var(--shadow);
+
+}
+
+header h1{
+
+    margin:0;
+
+    color:white;
+
+    letter-spacing:1px;
+
+}
+
+.logo-icon{
+
+    width:32px;
+
+    height:32px;
+
+    vertical-align:1px;
+
+    margin:-5px;
+
+}
+
+
+/* =====================================================
+   BITS Brand Bar
+===================================================== */
+
+.brand-bar{
+
+    display:flex;
+
+    width:180px;
+
+    height:6px;
+
+    margin:12px auto 0;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+}
+
+.brand-bar .gold{
+
+    flex:1;
+
+    background:var(--gold);
+
+}
+
+.brand-bar .sky{
+
+    flex:1;
+
+    background:var(--sky);
+
+}
+
+.brand-bar .red{
+
+    flex:1;
+
+    background:var(--red);
+
+}

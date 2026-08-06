@@ -22,7 +22,7 @@
 }*/
 
 {
-    const mapElement = document.getElementById("resultMap");
+    const mapElement = document.getElementById("map");
 
     const GUESS_LAT = parseFloat(mapElement.dataset.guessLat);
     const GUESS_LNG = parseFloat(mapElement.dataset.guessLng);
@@ -50,7 +50,7 @@
         shadowSize: [41, 41]
     });
 
-    let map = L.map("resultMap").setView(
+    let map = L.map("map").setView(
         [15.392514, 73.880434],
         15
     );

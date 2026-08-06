@@ -1,0 +1,402 @@
+/* =====================================================
+   Cards
+===================================================== */
+
+.homeCard{
+
+    background:rgba(255,255,255,.4);
+
+    border-radius:var(--radius);
+
+    backdrop-filter:blur(4px);
+
+    padding:35px;
+
+    box-shadow:0 12px 28px var(--shadow);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+
+}
+
+.card{
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    padding:35px;
+
+    box-shadow:0 12px 28px var(--shadow);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+
+}
+
+.card ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:30px 0;
+
+}
+
+.card li{
+
+    background:rgba(255,255,255,.45);
+
+    margin:12px 0;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    border-left:6px solid var(--sky);
+
+    text-align:left;
+
+}
+
+
+/* =====================================================
+   Buttons
+===================================================== */
+
+button{
+
+    padding:12px 24px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    transition:.2s;
+
+}
+
+
+/* ---------- Start ---------- */
+
+#startBtn{
+
+    background:var(--gold);
+
+    color:white;
+
+}
+
+#startBtn:hover{
+
+    filter:brightness(1.05);
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ---------- Submit ---------- */
+
+#submitBtn{
+
+    width:80%;
+
+    margin:15px auto 0;
+
+    display:block;
+
+    background:var(--gold);
+
+    color:white;
+
+}
+
+#submitBtn:hover:not(:disabled){
+
+    filter:brightness(1.05);
+
+    transform:translateY(-2px);
+
+}
+
+#submitBtn:active:not(:disabled){
+
+    transform:translateY(1px);
+
+}
+
+#submitBtn:disabled{
+
+    background:#B8B8B8;
+
+    color:white;
+
+    cursor:not-allowed;
+
+}
+
+
+/* ---------- Next ---------- */
+
+#nextBtn{
+
+    width:100%;
+
+    background:var(--sky);
+
+    color:white;
+
+}
+
+#nextBtn:hover{
+
+    filter:brightness(1.05);
+
+}
+
+
+/* ---------- Home ---------- */
+
+#homeBtn{
+
+    background:var(--red);
+
+    color:white;
+
+}
+
+#homeBtn:hover{
+
+    filter:brightness(1.08);
+
+}
+
+
+/* =====================================================
+   Forms
+===================================================== */
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    align-items:center;
+
+}
+
+label{
+
+    font-weight:bold;
+
+    color:var(--navy);
+
+}
+
+.enterName{
+
+    color:var(--red);
+
+}
+
+input{
+
+    width:100%;
+
+    max-width:350px;
+
+    padding:12px 16px;
+
+    font-size:16px;
+
+    color:var(--sky);
+
+    border:2px solid #d8d8d8;
+
+    border-radius:10px;
+
+    outline:none;
+
+    transition:.2s;
+
+}
+
+input:focus{
+
+    border-color:var(--sky);
+
+    box-shadow:0 0 0 3px rgba(116,195,235,.25);
+
+}
+
+
+/* =====================================================
+   Utility Classes
+===================================================== */
+
+.highlight{
+
+    color:var(--gold);
+
+    font-weight:bold;
+
+}
+
+.info{
+
+    color:var(--sky);
+
+    font-weight:bold;
+
+}
+
+.label{
+
+    display:block;
+
+    font-size:.75rem;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    color:var(--text-light);
+
+    margin-bottom:6px;
+
+}
+
+.value{
+
+    display:block;
+
+    font-size:1.8rem;
+
+    font-weight:bold;
+
+    color:var(--red);
+
+}
+
+
+/* =====================================================
+   Game HUD
+===================================================== */
+
+.game-hud{
+
+    display:grid;
+
+    grid-template-columns:0.7fr 1fr 1fr 1fr 0.7fr;
+
+    align-items:center;
+
+    height:72px;
+
+    width:100%;
+
+    margin:0;
+
+    background:
+    linear-gradient(
+        90deg,
+        var(--gold) 0%,
+        var(--gold) 20%,
+
+        var(--sky) 35%,
+        var(--sky) 65%,
+
+        var(--red) 80%,
+        var(--red) 100%
+    );
+
+    color:white;
+
+    box-shadow:0 3px 12px var(--shadow);
+
+}
+
+.hud-section{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100%;
+
+}
+
+.hud-label{
+
+    font-size:.7rem;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    opacity:.6;
+
+    margin-bottom:4px;
+
+}
+
+.hud-value{
+
+    font-size:1.2rem;
+
+    font-weight:bold;
+
+}
+
+.hud-hidden{
+
+    opacity:.45;
+
+}
+
+.hud-button{
+
+    background:none;
+
+    border:none;
+
+    color:white;
+
+    font-size:1.15rem;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    padding:0;
+
+    transition:.15s;
+
+}
+
+.hud-button:hover{
+
+    transform:scale(1.05);
+
+    opacity:.9;
+
+}

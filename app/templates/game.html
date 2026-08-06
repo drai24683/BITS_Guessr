@@ -1,88 +1,68 @@
 {% extends "base.html" %}
 
+{% set show_result_stats = False %}
+
+{% include "partials/game-hud.html" %}
+
 {% block title %}
 Game
 {% endblock %}
 
 {% block head %}
+
+<link rel="stylesheet" href="/static/css/game.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+
 {% endblock %}
 
 {% block content %}
 
 <div class="game-layout">
 
-    <div class="image-section">
-
-        <img
-            src="{{ game.current_round.challenge.image_path }}"
-            alt="Challenge Image"
-        >
-
-    </div>
-
-    <div class="info-card">
-
-        <div class="stat">
-
-            <span class="label">PLAYER</span>
-
-            <span class="value">{{ game.player.name }}</span>
-
-        </div>
-
-        <div class="stat">
-
-            <span class="label">ROUND</span>
-
-            <span class="value">
-                <span class="highlight">
-                    {{ game.current_round.number }}
-                / {{ game.MAX_ROUNDS }}
-                </span>
-            </span>
-
-        </div>
-
-        <button id="openMapBtn" autofocus>
-            Open Map
-        </button>
-
-    </div>
-
-</div>
-
-<div id="mapModal">
-
-    <button id="closeMapBtn">
-        Close
-    </button>
-
-    <div id="map"></div>
-
-    <form action="/round_result" method="POST">
-
-        <input
-            type="hidden"
-            id="lat"
-            name="lat"
-        >
-
-        <input
-            type="hidden"
-            id="lng"
-            name="lng"
-        >
+    <div id="mapModal" class="shrink">
 
         <button
-            type="submit"
-            id="submitBtn"
-            disabled
-        >
-            Select Location
-        </button>
+            id="resizeMapBtn"
+            type="button"
+            title="Resize Map">⛶</button>
 
-    </form>
+        <div id="map" class="shrink"></div>
+
+        <form action="/round_result" method="POST">
+
+            <input
+                type="hidden"
+                id="lat"
+                name="lat"
+            >
+
+            <input
+                type="hidden"
+                id="lng"
+                name="lng"
+            >
+
+            <button
+                type="submit"
+                id="submitBtn"
+                disabled
+            >
+                Select Location
+            </button>
+
+        </form>
+
+    </div>
+
+        <div class="image-section">
+
+            <img
+                src="{{ game.current_round.challenge.image_path }}"
+                alt="Challenge Image"
+            >
+
+        </div>
+
 
 </div>
 

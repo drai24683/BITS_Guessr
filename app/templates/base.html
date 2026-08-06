@@ -12,9 +12,8 @@
         {% endblock %}
     </title>
 
-    <link rel="stylesheet" href="/static/css/style.css">
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/components.css">
 
     {% block head %}
     {% endblock %}
@@ -28,11 +27,13 @@
     <!-- White overlay -->
     <div id="overlay"></div>
 
+    {% if show_header != False %}
+
     <header>
 
         <h1>
             B<img
-                src="/static/images/I.png"
+                src="/static/images/favicon.png"
                 class="logo-icon"
                 alt="BITSGuessr Logo"
             >TSGuessr
@@ -47,8 +48,10 @@
             <div class="red"></div>
 
         </div>
-
+    
     </header>
+
+    {% endif %}
 
     <main>
 

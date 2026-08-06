@@ -8,5 +8,11 @@ __pycache__/
 # VS Code
 .vscode/
 
+#TODO
+TODO.md
+
+#TORE
+TORE.md
+
 # macOS
 .DS_Store

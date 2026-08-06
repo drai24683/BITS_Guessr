@@ -1,91 +1,139 @@
-{% extends "base.html" %}
+    {% extends "base.html" %}
 
-{% block title %}
-Game Result
-{% endblock %}
+    {% block title %}
+    Game Result
+    {% endblock %}
 
-{% block content %}
+    {% block head %}
 
-<div class="page-actions">
+    <link rel="stylesheet" href="/static/css/game-result.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 
-    <form action="/" method="GET">
+    {% endblock %}
 
-        <button id="homeBtn" type="submit" autofocus>
-            Home
-        </button>
+    {% block content %}
 
-    </form>
+    <div class="game-result">
 
-</div>
+        <h1>
+            🎉 Game Complete!
+        </h1>
 
-<div class="game-result">
+        <div class="final-score">
 
-    <h2>🎉 Game Complete!</h2>
+            <div class="score-label">
+                Total Score
+            </div>
 
-    <div class="result-info">
-
-        <div class="result-row">
-
-            <span class="label">Player</span>
-
-            <span class="value">
-                {{ game.player.name }}
-            </span>
-
-        </div>
-
-        <div class="result-row">
-
-            <span class="label">Total Score</span>
-
-            <span class="value highlight">
+            <div class="score-value">
                 {{ game.total_score }}
-            </span>
+                <span>/ 25000</span>
+            </div>
+
+            <div class="player-name">
+                {{ game.player.name }}
+            </div>
 
         </div>
 
-        <div class="result-row">
+        <div class="result-layout">
 
-            <span class="label">Rounds Played</span>
+            <div class="result-map-section">
 
-            <span class="info">
-                {{ game.rounds|length }}
-            </span>
+                <div
+                    id="gameResultMap"
+                    data-rounds='{{ rounds_json|tojson }}'>
+                </div>
+
+            </div>
+
+            <div class="result-summary-section">
+
+                <h2>Round Summary</h2>
+
+                <div class="round-summary">
+
+                    {% for round in game.rounds %}
+
+                    <div class="summary-row"
+                        data-round="{{ loop.index0 }}">
+
+                        <span>
+
+                            <strong>
+                                Round {{ round.number }}
+                            </strong>
+
+                        </span>
+
+                        <span class="highlight">
+
+                            {{ round.score }} pts
+
+                        </span>
+
+                        <span class="info">
+
+                            {{ round.distance }} m
+
+                        </span>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="result-actions">
+
+            <form action="/" method="GET">
+
+                <button
+                    id="homeBtn"
+                    type="submit"
+                    style="margin-right:600px;">
+
+                    Home
+
+                </button>
+
+            </form>
+
+            <form action="/start_game" method="POST">
+
+                        <input
+                            id="player_name"
+                            type="text"
+                            name="player_name"
+                            value="{{ game.player.name }}"
+                            hidden
+                        >
+
+                <button
+                    id="startBtn"
+                    type="submit"
+                    autofocus
+                    >
+
+                    Play Again
+
+                </button>
+
+            </form>
 
         </div>
 
     </div>
 
-    <h3>Round Summary</h3>
+    {% endblock %}
 
-    <div class="round-summary">
+    {% block scripts %}
 
-        {% for round in game.rounds %}
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="/static/js/game-result.js"></script>
 
-        <div class="summary-row">
-
-            <span>
-                <strong>Round {{ round.number }}</strong>
-            </span>
-
-            <span class="highlight">
-                {{ round.score }} pts
-            </span>
-
-            <span class="info">
-                {{ round.distance }} m
-            </span>
-
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-</div>
-
-{% endblock %}
-
-{% block scripts %}
-<script src="/static/js/game-result.js"></script>
-{% endblock %}
+    {% endblock %}

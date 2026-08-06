@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Form, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -14,6 +14,11 @@ app.mount("/static", StaticFiles(directory="app/static/"), name="static")
 templates = Jinja2Templates(directory="app/templates")
 
 game = None
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon() -> FileResponse:
+    return FileResponse("app/static/images/favicon.png")
 
 
 # =========================
@@ -57,7 +62,8 @@ async def show_game(request: Request):
         request=request,
         name="game.html",
         context={
-            "game": game
+            "game": game,
+            "show_header": False
         }
     )
 
@@ -94,7 +100,8 @@ async def show_round_result(request: Request):
         request=request,
         name="round-result.html",
         context={
-            "game": game
+            "game": game,
+            "show_header": False
         }
     )
 
@@ -124,10 +131,21 @@ async def next_round():
 @app.get("/game_result/", response_class=HTMLResponse)
 async def show_game_result(request: Request):
 
+    rounds_json = []
+
+    for round in game.rounds:
+        rounds_json.append({
+            "guess": round.guess.coordinates,
+            "answer": round.challenge.coordinates,
+            "score": round.score,
+            "distance": round.distance,
+        })
+
     return templates.TemplateResponse(
-        request=request,
-        name="game-result.html",
-        context={
-            "game": game
+        request,
+        "game-result.html",
+        {
+            "game": game,
+            "rounds_json": rounds_json,
         }
     )
