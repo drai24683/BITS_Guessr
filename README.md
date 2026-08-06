@@ -1,22 +1,24 @@
 # BITSGuessr
 
-*A GeoGuessr-inspired web application for the BITS Pilani Goa campus.*
+*A GeoGuessr-inspired web application built for the BITS Pilani Goa campus.*
 
-Players are shown an image captured somewhere on campus and must identify its location by placing a marker on an interactive map. The closer the guess, the higher the score.
+BITSGuessr challenges players to identify locations around the BITS Goa campus from real photographs. Place a marker on the interactive campus map, submit your guess, and earn points based on how close you are to the actual location.
 
 ---
 
 ## Features
 
 - 🎮 Five-round gameplay
-- 🗺️ Interactive campus map using Leaflet.js
+- 🗺️ Interactive campus map powered by Leaflet.js
 - 📍 Click-to-place guessing system
 - 📏 Distance-based scoring
-- 🏆 End-of-game score summary
+- 📊 Live in-game HUD with total score tracking
 - 📸 Real BITS Goa campus location challenges
-- 🎨 Responsive UI with a custom BITS-inspired theme
+- 📍 Round result maps showing guesses, correct locations, and connecting paths
+- 🏁 Interactive final results map summarizing all five rounds
+- 🎨 Responsive BITS-inspired user interface
 - 🧩 Modular object-oriented backend
-- 🖥️ Server-side rendering using Jinja2 templates
+- 🖥️ Server-side rendering using FastAPI and Jinja2
 
 ---
 
@@ -73,11 +75,11 @@ BITSGuessr/
 ├── app/
 │   ├── data/
 │   ├── models/
+│   ├── routes/
 │   ├── static/
 │   │   ├── css/
 │   │   ├── images/
-│   │   ├── js/
-│   │   └── background/
+│   │   └── js/
 │   ├── templates/
 │   ├── utils/
 │   └── main.py
@@ -88,19 +90,24 @@ BITSGuessr/
 
 ---
 
+## Roadmap
 
-## Future Plans
+### Phase 2 — Web Application
 
-- [ ] Reveal the correct location after every round
-- [ ] Show both guessed and actual locations on the map
-- [ ] Draw a line between the guess and the correct location
-- [ ] Timer mode
-- [ ] Persistent leaderboard
-- [ ] User authentication
-- [ ] Multiplayer mode
-- [ ] React frontend
-- [ ] Database support (SQLite/PostgreSQL)
+- [ ] Session-based gameplay (multiple simultaneous users)
+- [ ] Persistent game storage
+- [ ] SQLite/PostgreSQL integration
 - [ ] Deployment
+
+### Future Features
+
+- [ ] Timer mode
+- [ ] Recent games page
+- [ ] Campus leaderboard
+- [ ] User authentication
+- [ ] Community challenge submission
+- [ ] Multiplayer mode
+- [ ] React frontend (optional)
 
 ---
 
