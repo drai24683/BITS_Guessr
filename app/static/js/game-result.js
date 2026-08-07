@@ -84,6 +84,33 @@
         padding: [40, 40]
     });
 
+
+    window.addEventListener('keydown', (e)=>{
+        const pixelDistance = 100;
+
+        const animOptions = {
+            animate: true,
+            duration: 0.5, // Animation length in seconds
+            easeLinearity: 0.25
+        };
+
+        if (e.key === '+' || e.key === '=' || e.key === ']' || e.key.toLowerCase() === 'e') {
+            map.zoomIn(1, animOptions); // Zoom in by 1 level
+        } 
+        else if (e.key === '-' || e.key === '_' || e.key === '[' || e.key.toLowerCase() === 'q') {
+            map.zoomOut(1, animOptions); // Zoom out by 1 level
+        }
+        else if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') {
+            map.panBy([0, -pixelDistance], animOptions); // Pan up
+        } else if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
+            map.panBy([0, pixelDistance], animOptions);  // Pan down
+        } else if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') {
+            map.panBy([-pixelDistance, 0], animOptions); // Pan left
+        } else if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') {
+            map.panBy([pixelDistance, 0], animOptions);  // Pan right
+        }
+    });
+
     const summaryRows = document.querySelectorAll(".summary-row");
 
     summaryRows.forEach((row, index) => {
