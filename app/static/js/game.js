@@ -7,10 +7,22 @@
     const latInput = document.getElementById("lat");
     const lngInput = document.getElementById("lng");
 
+    const guessIcon = L.icon({
+        iconUrl: "/static/images/leaf-icons/leaf-red.png",
+        shadowUrl: "/static/images/leaf-icons/leaf-shadow.png",
+
+        iconSize:     [19, 47.5], // size of the icon
+        shadowSize:   [25, 32], // size of the shadow
+        iconAnchor:   [11, 47], // point of the icon which will correspond to marker's location
+        shadowAnchor: [2, 32],  // the same for the shadow
+        popupAnchor:  [-1.5, -38] // point from which the popup should open relative to the iconAnchor
+
+    });
+
     modal.style.display = "block";
     submitBtn.focus();
 
-map = L.map("map").setView(                             // render map
+    map = L.map("map").setView(                         // render map
         [15.391514, 73.879034],
         15
     );
@@ -91,7 +103,10 @@ map = L.map("map").setView(                             // render map
         latInput.value = latlng.lat;
         lngInput.value = latlng.lng;
 
-        marker = L.marker(map.getCenter()).addTo(map);
+        marker = L.marker(
+            map.getCenter(), 
+            { icon: guessIcon }
+        ).addTo(map);
 
         submitBtn.disabled = false;
         submitBtn.textContent = "Submit Guess";
@@ -108,7 +123,10 @@ map = L.map("map").setView(                             // render map
         latInput.value = e.latlng.lat;
         lngInput.value = e.latlng.lng;
 
-        marker = L.marker(e.latlng).addTo(map);
+        marker = L.marker(
+            e.latlng, 
+            { icon: guessIcon }
+        ).addTo(map);
 
         submitBtn.disabled = false;
         submitBtn.textContent = "Submit Guess";

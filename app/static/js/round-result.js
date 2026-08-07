@@ -34,20 +34,24 @@
         iconUrl: "/static/images/leaf-icons/leaf-red.png",
         shadowUrl: "/static/images/leaf-icons/leaf-shadow.png",
 
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
+        iconSize:     [19, 47.5], // size of the icon
+        shadowSize:   [25, 32], // size of the shadow
+        iconAnchor:   [11, 47], // point of the icon which will correspond to marker's location
+        shadowAnchor: [2, 32],  // the same for the shadow
+        popupAnchor:  [-1.5, -38] // point from which the popup should open relative to the iconAnchor
+
     });
 
     const answerIcon = L.icon({
         iconUrl: "/static/images/leaf-icons/leaf-green.png",
         shadowUrl: "/static/images/leaf-icons/leaf-shadow.png",
 
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
+        iconSize:     [19, 47.5], // size of the icon
+        shadowSize:   [25, 32], // size of the shadow
+        iconAnchor:   [11, 47], // point of the icon which will correspond to marker's location
+        shadowAnchor: [2, 32],  // the same for the shadow
+        popupAnchor:  [-1.5, -38] // point from which the popup should open relative to the iconAnchor
+
     });
 
     let map = L.map("map").setView(
