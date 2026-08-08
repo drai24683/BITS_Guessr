@@ -549,7 +549,11 @@ input:focus{
 
     }
 
-    button{
+    .result-actions button,
+    form button,
+    #submitBtn,
+    #nextBtn,
+    #startBtn{
 
         width:100%;
 
