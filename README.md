@@ -8,6 +8,12 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 
 ---
 
+## Live Demo
+
+https://bitsguessr.onrender.com
+
+---
+
 ## Features
 
 - 🎮 Five-round gameplay
