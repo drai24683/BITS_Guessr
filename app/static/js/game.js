@@ -45,6 +45,11 @@
     const resizeBtn = document.getElementById("resizeMapBtn");
 
     function handleResizeClick() {                      // resize function
+
+        if (window.innerWidth <= 768) {
+            return;
+        }
+
         mapPanel.classList.toggle("expand");
         imagePanel.classList.toggle("shrink");
 

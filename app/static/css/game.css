@@ -179,3 +179,77 @@
     transform:scale(1.08);
 
 }
+
+/* =====================================================
+   Mobile
+===================================================== */
+
+@media (max-width:768px){
+
+    .game-layout{
+
+        flex-direction:column;
+
+        gap:24px;
+
+    }
+
+    .image-section{
+
+        flex:none;
+
+    }
+
+    .image-section img{
+
+        width:100%;
+
+        max-width:500px;
+
+        max-height:280px;
+
+    }
+
+    .image-section.shrink{
+
+        flex:none;
+
+    }
+
+    .image-section.shrink img{
+
+        max-height:180px;
+
+    }
+
+    #mapModal{
+
+        flex:none;
+
+        height:400px;
+
+    }
+
+    #mapModal.expand{
+
+        flex:none;
+
+    }
+
+    #map{
+
+        height:350px;
+
+    }
+
+    #resizeMapBtn{
+
+        top:8px;
+
+        right:12px;
+
+        font-size:20px;
+
+    }
+
+}

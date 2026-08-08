@@ -10,7 +10,7 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 
 ## Live Demo
 
-https://bitsguessr.onrender.com
+🌐 https://bitsguessr.onrender.com
 
 ---
 
@@ -22,12 +22,13 @@ https://bitsguessr.onrender.com
 - 📍 Click-to-place guessing system
 - ⌨️ Keyboard controls for map navigation and gameplay
 - 📏 Distance-based scoring
-- 📊 Live in-game HUD with score tracking
+- 📊 Live in-game HUD with live score tracking
 - 📸 Real BITS Goa campus location challenges
 - 📍 Round result maps showing guesses, correct locations, and connecting paths
-- 🏁 Interactive final results map summarizing all rounds
-- ℹ️ In-game help and controls overlay
-- 🎨 Responsive BITS-inspired user interface
+- 🏁 Interactive final results map summarizing all five rounds
+- ℹ️ In-game help, controls, and project information overlay
+- 📱 Responsive design for desktop and mobile devices
+- 🎨 Custom BITS-inspired user interface
 - 🧩 Modular object-oriented backend
 - 🖥️ Server-side rendering using FastAPI and Jinja2
 
@@ -110,7 +111,8 @@ BITSGuessr/
 - [ ] SQLite database
 - [ ] PostgreSQL support
 - [ ] Player statistics
-- [ ] Recent games page
+- [ ] Recent games
+- [ ] Improved scoring algorithm
 
 ### Phase 3 — Community
 
@@ -126,7 +128,20 @@ BITSGuessr/
 - [ ] Daily challenge
 - [ ] Difficulty settings
 - [ ] More campus locations
+- [ ] Analytics dashboard
 - [ ] React frontend (optional)
+
+---
+
+## Contributing
+
+Have an interesting campus location that would make a fun challenge?
+
+You can submit suggestions here:
+
+https://forms.gle/U3zFfAHEZJtArEYB9
+
+Bug reports, feature requests, and general feedback are always appreciated.
 
 ---
 

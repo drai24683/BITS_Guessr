@@ -241,3 +241,107 @@
     margin:0;
 
 }
+
+/* =====================================================
+   Mobile
+===================================================== */
+
+@media (max-width:768px){
+
+    .game-result{
+
+        padding:24px;
+
+    }
+
+    /* ---------- Score ---------- */
+
+    .final-score{
+
+        margin-bottom:28px;
+
+    }
+
+    .score-value{
+
+        font-size:3rem;
+
+    }
+
+    .score-value span{
+
+        font-size:1.4rem;
+
+    }
+
+    .player-name{
+
+        font-size:1.1rem;
+
+    }
+
+    /* ---------- Layout ---------- */
+
+    .result-layout{
+
+        flex-direction:column;
+
+        gap:28px;
+
+    }
+
+    .result-map-section,
+
+    .result-summary-section{
+
+        width:100%;
+
+        flex:none;
+
+    }
+
+    #gameResultMap{
+
+        height:400px;
+
+    }
+
+    /* ---------- Summary ---------- */
+
+    .summary-row{
+
+        padding:12px;
+
+    }
+
+    .summary-row strong{
+
+        font-size:1rem;
+
+    }
+
+    /* ---------- Buttons ---------- */
+
+    .result-actions{
+
+        flex-direction:column;
+
+        gap:16px;
+
+        padding:0;
+
+    }
+
+    .result-actions form{
+
+        width:100%;
+
+    }
+
+    .result-actions button{
+
+        width:100%;
+
+    }
+
+}

@@ -452,7 +452,7 @@ input:focus{
 
 .info-card{
 
-    width:min(600px, 900vw);
+    width:min(600px, 92vw);
 
     max-height:80vh;
 
@@ -523,5 +523,94 @@ input:focus{
     top:12px;
 
     right:12px;
+
+}
+
+/* =====================================================
+   Mobile
+===================================================== */
+
+@media (max-width:768px){
+
+    /* ---------- Cards ---------- */
+
+    .homeCard,
+    .card{
+
+        padding:24px;
+
+    }
+
+    /* ---------- Forms ---------- */
+
+    input{
+
+        max-width:100%;
+
+    }
+
+    button{
+
+        width:100%;
+
+    }
+
+    /* ---------- HUD ---------- */
+
+    .game-hud{
+
+        grid-template-columns:repeat(5, 1fr);
+
+        height:64px;
+
+        padding:0 6px;
+
+    }
+
+    .hud-label{
+
+        font-size:.55rem;
+
+        letter-spacing:1px;
+
+    }
+
+    .hud-value{
+
+        font-size:.9rem;
+
+    }
+
+    .hud-button{
+
+        font-size:1rem;
+
+    }
+
+    /* ---------- Info ---------- */
+
+    #infoBtn{
+
+        bottom:20px;
+
+        right:20px;
+
+    }
+
+    .info-card{
+
+        width:100%;
+
+        max-height:90vh;
+
+        padding:20px;
+
+    }
+
+    #infoModal{
+
+        padding:10px;
+        
+    }
 
 }
