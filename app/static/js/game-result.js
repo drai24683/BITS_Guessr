@@ -89,7 +89,7 @@
     });
 
 
-    window.addEventListener('keydown', (e)=>{
+    mapElement.addEventListener('keydown', (e)=>{
         const pixelDistance = 100;
 
         const animOptions = {

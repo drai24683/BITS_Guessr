@@ -1,4 +1,33 @@
 /* =====================================================
+   BITSGuessr Theme
+===================================================== */
+
+:root {
+
+    /* ---------- Brand ---------- */
+
+    --navy: #231F72;
+    --gold: #F3A720;
+    --sky: #74C3EB;
+    --red: #EB1C25;
+
+    /* ---------- UI ---------- */
+
+    --background: #EEF3F8;
+
+    --surface: rgba(255,255,255,.72);
+
+    --text: #202020;
+
+    --text-light: #666666;
+
+    --shadow: rgba(0,0,0,.18);
+
+    --radius: 16px;
+}
+
+
+/* =====================================================
    Cards
 ===================================================== */
 
@@ -398,5 +427,101 @@ input:focus{
     transform:scale(1.05);
 
     opacity:.9;
+
+}
+
+#infoModal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:right;
+
+    align-items:center;
+
+    padding:100px;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:9999;
+
+}
+
+.info-card{
+
+    width:min(600px, 900vw);
+
+    max-height:80vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    padding:30px;
+
+    border-radius:var(--radius);
+
+    background:var(--surface);
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:0 12px 30px var(--shadow);
+
+    position:relative;
+
+}
+
+.info-content{
+
+    overflow-y:auto;
+
+    margin-top:15px;
+
+    text-align:left;
+
+}
+
+.info-content p{
+
+    margin:0 0 18px;
+
+}
+
+.info-content h2{
+
+    margin-top:0;
+
+}
+
+#infoBtn{
+
+    position:fixed;
+
+    bottom:30px;
+
+    right:30px;
+
+    background:none;
+
+    z-index:1000;
+
+}
+
+.hidden{
+
+    display:none !important;
+
+}
+
+#closeInfo{
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
 
 }

@@ -54,10 +54,28 @@ Round Result
     </div>
 
 </div>
+<button id="infoBtn"><img src="/static/images/info.png" alt="info box" height="32px" width="32px"> </button>
+
+<div id="infoModal" class="hidden">
+
+    <div class="info-card">
+
+        <button id="closeInfo">&times;</button>
+
+        <h2>Image Info</h2>
+
+        <p>
+            Submitted by: {{ game.current_round.challenge.owner }}
+        </p>
+
+    </div>
+
+</div>
 
 {% endblock %}
 
 {% block scripts %}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="/static/js/round-result.js"></script>
+<script src="/static/js/hud.js"></script>
 {% endblock %}

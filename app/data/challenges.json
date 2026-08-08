@@ -1,32 +1,382 @@
 [
     {
         "id": 1,
-        "imagePath": "/static/images/challenges/B_Dome.jpeg",
-        "locationName": "B Dome",
-        "coordinates": [15.392514, 73.880434]
+        "imagePath": "/static/images/challenges/1.jpg",
+        "locationName": "AB",
+        "coordinates": [
+            15.392514,
+            73.880434
+        ],
+        "owner": "Duck"
     },
     {
         "id": 2,
-        "imagePath": "/static/images/challenges/NAB.jpeg",
+        "imagePath": "/static/images/challenges/2.jpg",
         "locationName": "NAB",
-        "coordinates": [15.391378, 73.882467]
+        "coordinates": [
+            15.391378,
+            73.882467
+        ],
+        "owner": "Duck"
     },
     {
         "id": 3,
-        "imagePath": "/static/images/challenges/Obs.jpeg",
+        "imagePath": "/static/images/challenges/3.jpg",
         "locationName": "Obs",
-        "coordinates": [15.391206, 73.882479]
+        "coordinates": [
+            15.391206,
+            73.882479
+        ],
+        "owner": "Duck"
     },
     {
         "id": 4,
-        "imagePath": "/static/images/challenges/D_Classroom.jpeg",
-        "locationName": "D_Classroom",
-        "coordinates": [15.392373, 73.881936]
+        "imagePath": "/static/images/challenges/4.jpg",
+        "locationName": "Obs",
+        "coordinates": [
+            15.391165409194095,
+            73.88264608301789
+        ],
+        "owner": "Manvay"
     },
     {
         "id": 5,
-        "imagePath": "/static/images/challenges/Subspot.jpeg",
-        "locationName": "Subspot",
-        "coordinates": [15.391528, 73.880660]
+        "imagePath": "/static/images/challenges/5.jpg",
+        "locationName": "D_side",
+        "coordinates": [
+            15.393048340068127,
+            73.88385577988981
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 6,
+        "imagePath": "/static/images/challenges/6.jpg",
+        "locationName": "NAB",
+        "coordinates": [
+            15.39178963599875,
+            73.88229720816527
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 7,
+        "imagePath": "/static/images/challenges/7.jpg",
+        "locationName": "SAC",
+        "coordinates": [
+            15.391889061245763,
+            73.87577331726615
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 8,
+        "imagePath": "/static/images/challenges/8.jpg",
+        "locationName": "AB",
+        "coordinates": [
+            15.392878942047515,
+            73.88004457257831
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 9,
+        "imagePath": "/static/images/challenges/9.jpg",
+        "locationName": "NAB",
+        "coordinates": [
+            15.391783204403396,
+            73.88172098956811
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 10,
+        "imagePath": "/static/images/challenges/10.jpg",
+        "locationName": "AB",
+        "coordinates": [
+            15.393195928838564,
+            73.88004221718904
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 11,
+        "imagePath": "/static/images/challenges/11.jpg",
+        "locationName": "LL",
+        "coordinates": [
+            15.393384715144023,
+            73.881190077559
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 12,
+        "imagePath": "/static/images/challenges/12.jpg",
+        "locationName": "AB",
+        "coordinates": [
+            15.393263116621691,
+            73.88004160704531
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 13,
+        "imagePath": "/static/images/challenges/13.jpg",
+        "locationName": "DS",
+        "coordinates": [
+            15.392194355586938,
+            73.8831616042519
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 14,
+        "imagePath": "/static/images/challenges/14.jpg",
+        "locationName": "AS",
+        "coordinates": [
+            15.392922481476946,
+            73.87843865920348
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 15,
+        "imagePath": "/static/images/challenges/15.jpg",
+        "locationName": "AB",
+        "coordinates": [
+            15.392844854521085,
+            73.87974892531092
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 16,
+        "imagePath": "/static/images/challenges/16.jpg",
+        "locationName": "DS",
+        "coordinates": [
+            15.392376685419752,
+            73.8833380369424
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 17,
+        "imagePath": "/static/images/challenges/17.jpg",
+        "locationName": "NAB",
+        "coordinates": [
+            15.39132752403599,
+            73.88150490185015
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 18,
+        "imagePath": "/static/images/challenges/18.jpg",
+        "locationName": "MISC",
+        "coordinates": [
+            15.39086873959594,
+            73.88132432275403
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 19,
+        "imagePath": "/static/images/challenges/19.jpg",
+        "locationName": "CC",
+        "coordinates": [
+            15.391902934776915,
+            73.88067160195472
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 20,
+        "imagePath": "/static/images/challenges/20.jpg",
+        "locationName": "AS",
+        "coordinates": [
+            15.389997023170212,
+            73.87687274621233
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 21,
+        "imagePath": "/static/images/challenges/21.jpg",
+        "locationName": "AS",
+        "coordinates": [
+            15.390087898541337,
+            73.87675604927847
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 22,
+        "imagePath": "/static/images/challenges/22.jpg",
+        "locationName": "AS",
+        "coordinates": [
+            15.393298616166806,
+            73.87983800228201
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 23,
+        "imagePath": "/static/images/challenges/23.jpg",
+        "locationName": "AB",
+        "coordinates": [
+            15.392691802225901,
+            73.8795108092631
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 24,
+        "imagePath": "/static/images/challenges/24.jpg",
+        "locationName": "NAB",
+        "coordinates": [
+            15.392081345139832,
+            73.88156080690945
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 25,
+        "imagePath": "/static/images/challenges/25.jpg",
+        "locationName": "AB",
+        "coordinates": [
+            15.393356402291527,
+            73.87978837631505
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 26,
+        "imagePath": "/static/images/challenges/26.jpg",
+        "locationName": "AB",
+        "coordinates": [
+            15.392584352537247,
+            73.88041849583496
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 27,
+        "imagePath": "/static/images/challenges/27.jpg",
+        "locationName": "AB",
+        "coordinates": [
+            15.3922028922284,
+            73.88041299964769
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 28,
+        "imagePath": "/static/images/challenges/28.jpg",
+        "locationName": "Lib",
+        "coordinates": [
+            15.391989521514228,
+            73.88007065962672
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 29,
+        "imagePath": "/static/images/challenges/29.jpg",
+        "locationName": "CL",
+        "coordinates": [
+            15.390100194654844,
+            73.87802508413075
+        ],
+        "owner": "Manvay"
+    },
+    {
+        "id": 30,
+        "imagePath": "/static/images/challenges/30.jpg",
+        "locationName": "CS",
+        "coordinates": [
+            15.391030653907995,
+            73.88045180699909
+        ],
+        "owner": "Duck"
+    },
+    {
+        "id": 31,
+        "imagePath": "/static/images/challenges/31.jpg",
+        "locationName": "NAB",
+        "coordinates": [
+            15.391558753639531,
+            73.88281064399168
+        ],
+        "owner": "Duck"
+    },
+    {
+        "id": 32,
+        "imagePath": "/static/images/challenges/32.jpg",
+        "locationName": "CS",
+        "coordinates": [
+            15.390496286320579,
+            73.88038744051862
+        ],
+        "owner": "Duck"
+    },
+    {
+        "id": 33,
+        "imagePath": "/static/images/challenges/33.jpg",
+        "locationName": "CC",
+        "coordinates": [
+            15.390951328149612,
+            73.88164432843168
+        ],
+        "owner": "Duck"
+    },
+    {
+        "id": 34,
+        "imagePath": "/static/images/challenges/34.jpg",
+        "locationName": "CS",
+        "coordinates": [
+            15.39057897956408,
+            73.88039187029425
+        ],
+        "owner": "Duck"
+    },
+    {
+        "id": 35,
+        "imagePath": "/static/images/challenges/35.jpg",
+        "locationName": "CL",
+        "coordinates": [
+            15.391541968559542,
+            73.87922829546552
+        ],
+        "owner": "Duck"
+    },
+    {
+        "id": 36,
+        "imagePath": "/static/images/challenges/36.jpg",
+        "locationName": "NAB",
+        "coordinates": [
+            15.392332252182662,
+            73.88249357002535
+        ],
+        "owner": "Duck"
+    },
+    {
+        "id": 37,
+        "imagePath": "/static/images/challenges/37.jpg",
+        "locationName": "CL",
+        "coordinates": [
+            15.391638336165684,
+            73.8789507456342
+        ],
+        "owner": "Duck"
+    },
+    {
+        "id": 38,
+        "imagePath": "/static/images/challenges/38.jpg",
+        "locationName": "Obs",
+        "coordinates": [
+            15.39113559461796,
+            73.88266229485443
+        ],
+        "owner": "Duck"
     }
 ]

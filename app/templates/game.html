@@ -65,13 +65,48 @@ Game
 
 
 </div>
+<button id="infoBtn"><img src="/static/images/info.png" alt="info box" height="32px" width="32px"> </button>
+
+<div id="infoModal" class="hidden">
+
+    <div class="info-card">
+
+        <button id="closeInfo">&times;</button>
+
+        <h2>⌨️ Keyboard Controls</h2>
+
+        <div class="controls">
+
+            <div><strong>Pan Map</strong></div>
+            <div>Arrow Keys / WASD</div>
+
+            <div><strong>Zoom In</strong></div>
+            <div>+, ], E</div>
+
+            <div><strong>Zoom Out</strong></div>
+            <div>-, [, Q</div>
+
+            <div><strong>Fullscreen</strong></div>
+            <div>F</div>
+
+            <div><strong>Place Marker</strong></div>
+            <div>R</div>
+
+            <div><strong>Submit Guess</strong></div>
+            <div>Enter</div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
 
 {% block scripts %}
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
+<script src="/static/js/hud.js"></script>
 <script src="/static/js/game.js"></script>
 
 {% endblock %}

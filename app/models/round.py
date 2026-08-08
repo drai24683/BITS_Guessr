@@ -4,7 +4,7 @@ from app.utils.status import GameStatus
 
 class Round:
     MAX_SCORE = 5000
-    MAX_DISTANCE = 1000
+    MAX_DISTANCE = 1500
     def __init__(self, number, challenge):
         self.number = number
         self.score = 0
@@ -24,7 +24,13 @@ class Round:
         return self.distance
     def calculate_score (self):
         score_distance = max(0,self.distance-20)
-        self.score = int(max(0,self.MAX_SCORE*(1 - score_distance/self.MAX_DISTANCE)))
+        ratio = score_distance/self.MAX_DISTANCE
+        if score_distance <= 750:
+            self.score = int(self.MAX_SCORE * (1 - ratio) ** 2.5)
+        elif score_distance <= 1000:
+            score_at_750 = self.MAX_SCORE * (1 - 750 / 1500) ** 2.5
+            t = (score_distance - 750) / 250 
+            self.score = int(score_at_750 * (1 - t) ** 2.5)
         return self.score
     def start_round(self):
         self.status = GameStatus.ACTIVE

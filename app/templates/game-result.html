@@ -1,139 +1,155 @@
-    {% extends "base.html" %}
+{% extends "base.html" %}
 
-    {% block title %}
-    Game Result
-    {% endblock %}
+{% block title %}
+Game Result
+{% endblock %}
 
-    {% block head %}
+{% block head %}
 
-    <link rel="stylesheet" href="/static/css/game-result.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<link rel="stylesheet" href="/static/css/game-result.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 
-    {% endblock %}
+{% endblock %}
 
-    {% block content %}
+{% block content %}
 
-    <div class="game-result">
+<div class="game-result">
 
-        <h1>
-            🎉 Game Complete!
-        </h1>
+    <h1>
+        🎉 It's So Over!
+    </h1>
 
-        <div class="final-score">
+    <div class="final-score">
 
-            <div class="score-label">
-                Total Score
-            </div>
+        <div class="score-label">
+            Total Score
+        </div>
 
-            <div class="score-value">
-                {{ game.total_score }}
-                <span>/ 25000</span>
-            </div>
+        <div class="score-value">
+            {{ game.total_score }}
+            <span>/ 25000</span>
+        </div>
 
-            <div class="player-name">
-                {{ game.player.name }}
+        <div class="player-name">
+            {{ game.player.name }}
+        </div>
+
+    </div>
+
+    <div class="result-layout">
+
+        <div class="result-map-section">
+
+            <div
+                id="gameResultMap"
+                data-rounds='{{ rounds_json|tojson }}'>
             </div>
 
         </div>
 
-        <div class="result-layout">
+        <div class="result-summary-section">
 
-            <div class="result-map-section">
+            <h2>Round Summary</h2>
 
-                <div
-                    id="gameResultMap"
-                    data-rounds='{{ rounds_json|tojson }}'>
-                </div>
+            <div class="round-summary">
 
-            </div>
+                {% for round in game.rounds %}
 
-            <div class="result-summary-section">
+                <div class="summary-row"
+                    data-round="{{ loop.index0 }}">
 
-                <h2>Round Summary</h2>
+                    <span class="round">
 
-                <div class="round-summary">
+                        <strong>
+                            Round {{ round.number }}
+                        </strong>
 
-                    {% for round in game.rounds %}
+                    </span>
 
-                    <div class="summary-row"
-                        data-round="{{ loop.index0 }}">
+                    <span class="highlight">
 
-                        <span>
+                        {{ round.score }} pts
 
-                            <strong>
-                                Round {{ round.number }}
-                            </strong>
+                    </span>
 
-                        </span>
+                    <span class="info">
 
-                        <span class="highlight">
+                        {{ round.distance }} m
 
-                            {{ round.score }} pts
-
-                        </span>
-
-                        <span class="info">
-
-                            {{ round.distance }} m
-
-                        </span>
-
-                    </div>
-
-                    {% endfor %}
+                    </span>
 
                 </div>
 
+                {% endfor %}
+
             </div>
-
-        </div>
-
-        <div class="result-actions">
-
-            <form action="/" method="GET">
-
-                <button
-                    id="homeBtn"
-                    type="submit"
-                    style="margin-right:600px;">
-
-                    Home
-
-                </button>
-
-            </form>
-
-            <form action="/start_game" method="POST">
-
-                        <input
-                            id="player_name"
-                            type="text"
-                            name="player_name"
-                            value="{{ game.player.name }}"
-                            hidden
-                        >
-
-                <button
-                    id="startBtn"
-                    type="submit"
-                    autofocus
-                    >
-
-                    Play Again
-
-                </button>
-
-            </form>
 
         </div>
 
     </div>
 
-    {% endblock %}
+    <div class="result-actions">
 
-    {% block scripts %}
+        <form action="/" method="GET">
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="/static/js/game-result.js"></script>
+            <button
+                id="homeBtn"
+                type="submit">
 
-    {% endblock %}
+                Home
+
+            </button>
+
+        </form>
+
+        <form action="/start_game" method="POST">
+
+                    <input
+                        id="player_name"
+                        type="text"
+                        name="player_name"
+                        value="{{ game.player.name }}"
+                        hidden
+                    >
+
+            <button
+                id="startBtn"
+                type="submit"
+                autofocus
+                >
+
+                Play Again
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<button id="infoBtn"><img src="/static/images/info.png" alt="info box" height="32px" width="32px"> </button>
+
+<div id="infoModal" class="hidden">
+
+    <div class="info-card">
+
+        <button id="closeInfo">&times;</button>
+
+        <p>
+            <i>Thanks for playing, {{ game.player.name }} :D</i>
+        </p>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="/static/js/game-result.js"></script>
+
+{% endblock %}

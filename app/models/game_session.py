@@ -28,7 +28,8 @@ class GameSession:
             id=challenge['id'],
             coordinates=tuple(challenge['coordinates']),
             image_path=challenge['imagePath'],
-            location_name=challenge.get('locationName')
+            location_name=challenge.get('locationName'),
+            owner=challenge.get('owner')
         )
 
     def submit_guess(self, lat, lng):

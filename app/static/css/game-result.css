@@ -1,4 +1,33 @@
 /* =====================================================
+   BITSGuessr Theme
+===================================================== */
+
+:root {
+
+    /* ---------- Brand ---------- */
+
+    --navy: #231F72;
+    --gold: #F3A720;
+    --sky: #74C3EB;
+    --red: #EB1C25;
+
+    /* ---------- UI ---------- */
+
+    --background: #EEF3F8;
+
+    --surface: rgba(255,255,255,.72);
+
+    --text: #202020;
+
+    --text-light: #666666;
+
+    --shadow: rgba(0,0,0,.18);
+
+    --radius: 16px;
+}
+
+
+/* =====================================================
    Game Result
 ===================================================== */
 
@@ -154,7 +183,7 @@
 
     background:var(--surface);
 
-    border-left:6px solid var(--red);
+    border-inline:6px solid var(--navy);
 
     border-radius:var(--radius);
 
@@ -168,6 +197,12 @@
 
 }
 
+.summary-row .round{
+
+    color:var(--red);
+
+}
+
 .summary-row .highlight{
 
     font-size:1.15rem;
@@ -176,7 +211,7 @@
 
 .summary-row .info{
 
-    color:var(--text-light);
+    color:var(--sky);
 
 }
 
@@ -191,6 +226,18 @@
 
     display:flex;
 
-    justify-content:center;
+    justify-content:space-between;
+
+    align-items:center;
+
+    width:100%;
+
+    padding:0 40px;
+
+}
+
+.result-actions form{
+
+    margin:0;
 
 }
