@@ -94,10 +94,11 @@ async def start_game(request: Request, player_name: str = Form(...)):
     existing_game = get_game(request)
 
     if existing_game is not None:
-        return RedirectResponse(
-            url="/game",
-            status_code=303
-        )
+        if existing_game.status == GameStatus.ACTIVE:
+            return RedirectResponse(
+                url="/game",
+                status_code=303
+            )
 
     game = GameSession(Player(player_name))
     game.challenges = challenges_cache.copy()

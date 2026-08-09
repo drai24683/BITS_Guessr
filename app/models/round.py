@@ -3,8 +3,11 @@ from app.models.guess import Guess
 from app.utils.status import GameStatus
 
 class Round:
+    
     MAX_SCORE = 5000
+
     MAX_DISTANCE = 1000
+
     def __init__(self, number, challenge):
         self.number = number
         self.score = 0
@@ -22,13 +25,16 @@ class Round:
         delta_lat, delta_lng = ((guess_lat - challenge_lat)*pi/180, (guess_lng - challenge_lng)*cos(challenge_lat*pi/180)*pi/180)
         self.distance = float(f"{((delta_lat**2 + delta_lng**2)**0.5)*6371000:.2f}")
         return self.distance
+    
     def calculate_score (self):
         score_distance = max(0,self.distance-20)
-        ratio = score_distance/self.MAX_DISTANCE
+        ratio = min(max(score_distance/self.MAX_DISTANCE, 0), 1)
         self.score = int(self.MAX_SCORE * (1 - ratio) ** 2.5)
         return self.score
+    
     def start_round(self):
         self.status = GameStatus.ACTIVE
+
     def end_round(self):
         if self.guess is None:
             raise ValueError("No guess has been submitted.")
