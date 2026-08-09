@@ -25,13 +25,25 @@ class GameSession:
         )
 
     def submit_guess(self, lat, lng):
-        if self.current_round.status == GameStatus.COMPLETED:
-            return
+        if self.status != GameStatus.ACTIVE:
+            raise RuntimeError("Game is not active.")
+
+        if self.current_round is None:
+            raise RuntimeError("No active round.")
+
+        if self.current_round.status != GameStatus.ACTIVE:
+            raise RuntimeError("Current round is not active.")
+
         self.current_round.submit_guess(lat, lng)
         self.current_round.end_round()
         self.total_score = sum(round.score for round in self.rounds)
 
     def next_round(self):
+        if self.current_round is not None:
+            if self.current_round.status != GameStatus.COMPLETED:
+                raise RuntimeError(
+                    "Cannot start the next round before completing the current round."
+                )
         if len(self.rounds) < self.MAX_ROUNDS:
             challenge = self.generate_challenge()
             round_number = len(self.rounds) + 1
