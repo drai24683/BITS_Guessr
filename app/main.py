@@ -91,14 +91,18 @@ async def home(request: Request):
 @app.post("/start_game")
 async def start_game(request: Request, player_name: str = Form(...)):
 
-    store_game(request, GameSession(Player(player_name)))
+    existing_game = get_game(request)
 
-    game = get_game(request)
+    if existing_game is not None:
+        return RedirectResponse(
+            url="/game",
+            status_code=303
+        )
 
-    if game is None:
-        return RedirectResponse("/", status_code=303)
-
+    game = GameSession(Player(player_name))
     game.challenges = challenges_cache.copy()
+
+    store_game(request, game)
 
     game.start_game()
 
@@ -106,7 +110,6 @@ async def start_game(request: Request, player_name: str = Form(...)):
         url="/game",
         status_code=303
     )
-
 
 @app.get("/game", response_class=HTMLResponse)
 async def show_game(request: Request):
@@ -137,9 +140,6 @@ async def round_result(
     lng: float = Form(...)
 ):
     game = get_game(request)
-
-    if game is None:
-        return RedirectResponse("/", status_code=303)
 
     if game is None:
         return RedirectResponse("/", status_code=303)
@@ -198,10 +198,24 @@ async def next_round(request: Request):
     if game is None:
         return RedirectResponse("/", status_code=303)
 
+    if game.status == GameStatus.COMPLETED:
+        return RedirectResponse(
+            url="/game_result",
+            status_code=303
+        )
+
+    if game.current_round is None:
+        return RedirectResponse("/", status_code=303)
+
+    if game.current_round.status != GameStatus.COMPLETED:
+        return RedirectResponse(
+            url="/game",
+            status_code=303
+        )
+
     game.next_round()
 
     if game.status == GameStatus.COMPLETED:
-
         return RedirectResponse(
             url="/game_result",
             status_code=303
@@ -211,7 +225,6 @@ async def next_round(request: Request):
         url="/game",
         status_code=303
     )
-
 
 @app.get("/game_result", response_class=HTMLResponse)
 async def show_game_result(request: Request):

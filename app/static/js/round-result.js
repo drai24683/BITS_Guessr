@@ -1,28 +1,18 @@
-/*{
-    const card = document.querySelector(".card");
-
-    document.addEventListener("mousemove", (e) => {
-
-        const x = (e.clientX - window.innerWidth / 2) / 40;
-        const y = (e.clientY - window.innerHeight / 2) / 40;
-
-        card.style.transform =
-            `translate(${x}px, ${y}px)
-            rotateY(${x/4}deg)
-            rotateX(${-y/4}deg)`;
-
-    });
-
-    document.addEventListener("mouseleave", () => {
-
-        card.style.transform =
-            "translate(0,0) rotateX(0) rotateY(0)";
-
-    });
-}*/
-
 {
     const mapElement = document.getElementById("map");
+
+    const form = document.querySelector('form[action="/next_round"]');
+
+    if (form) {
+        form.addEventListener("submit", () => {
+            const button = form.querySelector('button[type="submit"]');
+
+            if (button) {
+                button.disabled = true;
+                button.textContent = "Loading...";
+            }
+        });
+    }
 
     const GUESS_LAT = parseFloat(mapElement.dataset.guessLat);
     const GUESS_LNG = parseFloat(mapElement.dataset.guessLng);
