@@ -1,11 +1,7 @@
-import json, random
+import random
 from app.utils.status import GameStatus
 from app.models.challenge import Challenge
 from app.models.round import Round
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parents[1]
-CHALLENGES_FILE = BASE_DIR / "data" / "challenges.json"
 
 class GameSession:
     MAX_ROUNDS = 5 
@@ -16,10 +12,6 @@ class GameSession:
         self.total_score = 0
         self.challenges = []
         self.status = GameStatus.NOT_STARTED
-    
-    def load_challenges(self):
-        with CHALLENGES_FILE.open("r", encoding="utf-8") as f:
-            self.challenges = json.load(f)
 
     def generate_challenge(self):
         challenge = random.choice(self.challenges)
@@ -52,7 +44,6 @@ class GameSession:
     def start_game(self):
         if self.status != GameStatus.NOT_STARTED:
             return
-        self.load_challenges()
         self.status = GameStatus.ACTIVE
         self.next_round()
 

@@ -22,7 +22,7 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 - 📍 Click-to-place guessing system
 - ⌨️ Keyboard controls for map navigation and gameplay
 - 📏 Distance-based scoring
-- 📊 Live in-game HUD with live score tracking
+- 📊 Live in-game HUD with score tracking
 - 📸 Real BITS Goa campus location challenges
 - 📍 Round result maps showing guesses, correct locations, and connecting paths
 - 🏁 Interactive final results map summarizing all five rounds
@@ -30,6 +30,8 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 - 📱 Responsive design for desktop and mobile devices
 - 🎨 Custom BITS-inspired user interface
 - 🧩 Modular object-oriented backend
+- 🔄 Challenge data loaded from an external Google Apps Script API
+- 💾 Startup caching of challenge data with local JSON fallback
 - 🖥️ Server-side rendering using FastAPI and Jinja2
 
 ---
@@ -41,6 +43,7 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 - Python
 - FastAPI
 - Jinja2
+- HTTPX
 
 ### Frontend
 
@@ -49,6 +52,45 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 - JavaScript
 - Leaflet.js
 - OpenStreetMap
+
+### Data & Storage
+
+- Google Sheets
+- Google Apps Script
+- Google Drive
+- Local JSON fallback
+
+---
+
+## How It Works
+
+Challenge metadata is maintained through a Google Sheet and exposed through a Google Apps Script web endpoint.
+
+When the application starts, the backend fetches the available challenges and stores them in an in-memory cache. Individual game sessions receive their own copy of the challenge list, allowing challenges to be removed from a game without modifying the global cache.
+
+If the external challenge API is unavailable, BITSGuessr automatically falls back to the local `challenges.json` dataset.
+
+```text
+Google Sheets
+     │
+     ▼
+Google Apps Script
+     │
+     ▼
+Challenge Service
+     │
+     ├── External API
+     │
+     └── Local JSON fallback
+     │
+     ▼
+Application Cache
+     │
+     ▼
+Game Sessions
+```
+
+Images are hosted on Google Drive and referenced by URL from the challenge data.
 
 ---
 
@@ -73,7 +115,7 @@ uvicorn app.main:app --reload
 
 Open your browser and visit:
 
-```
+```text
 http://127.0.0.1:8000
 ```
 
@@ -81,20 +123,34 @@ http://127.0.0.1:8000
 
 ## Project Structure
 
-```
+```text
 BITSGuessr/
 │
 ├── app/
 │   ├── data/
+│   │   └── challenges.json
+│   │
 │   ├── models/
+│   │   ├── challenge.py
+│   │   ├── game_session.py
+│   │   ├── player.py
+│   │   └── round.py
+│   │
+│   ├── services/
+│   │   └── challenge_service.py
+│   │
 │   ├── static/
 │   │   ├── css/
 │   │   ├── images/
 │   │   ├── js/
 │   │   └── backgrounds/
+│   │
 │   ├── templates/
 │   │   └── partials/
+│   │
 │   ├── utils/
+│   │   └── status.py
+│   │
 │   └── main.py
 │
 ├── requirements.txt
@@ -114,10 +170,11 @@ BITSGuessr/
 - [ ] Recent games
 - [ ] Improved scoring algorithm
 
-### Phase 3 — Community
+### Phase 3 — Accounts & Community
 
-- [ ] Campus leaderboard
 - [ ] User authentication
+- [ ] Campus leaderboard
+- [ ] Player profiles
 - [ ] Community challenge submission
 - [ ] Challenge moderation tools
 
@@ -147,9 +204,12 @@ Bug reports, feature requests, and general feedback are always appreciated.
 
 ## Current Limitations
 
-- Game progress is stored only for the current browser session.
+- Game sessions are currently stored in server memory.
+- Game progress is lost when the server restarts.
 - Completed games are not yet persisted to a database.
-- Leaderboards and player statistics are planned for a future release.
+- User accounts and authentication are not yet implemented.
+- Leaderboards and player statistics are not yet available.
+- Multiplayer gameplay is not yet implemented.
 
 ---
 

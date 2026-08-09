@@ -36,6 +36,12 @@
 
     });
 
+    window.addEventListener("keydown", (e) => {
+        if (e.key==="Escape"){
+            infoModal.classList.add("hidden")
+        }
+    });
+
     window.addEventListener("keydown", (event) => {
 
         if (event.key.toLowerCase() === "i") {
