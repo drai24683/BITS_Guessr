@@ -7,6 +7,13 @@
     const latInput = document.getElementById("lat");
     const lngInput = document.getElementById("lng");
 
+    const form = submitBtn.closest("form");         // Double-click bug fix
+
+    form.addEventListener("submit", () => {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+    });
+
     const guessIcon = L.icon({
         iconUrl: "/static/images/leaf-icons/leaf-red.png",
         shadowUrl: "/static/images/leaf-icons/leaf-shadow.png",
