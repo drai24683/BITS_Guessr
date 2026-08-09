@@ -141,6 +141,18 @@ async def round_result(
     if game is None:
         return RedirectResponse("/", status_code=303)
 
+    if game is None:
+        return RedirectResponse("/", status_code=303)
+
+    if game.current_round is None:
+        return RedirectResponse("/", status_code=303)
+
+    if game.current_round.status == GameStatus.COMPLETED:
+        return RedirectResponse(
+            url="/round_result",
+            status_code=303
+        )
+
     game.submit_guess(lat, lng)
 
     if game.current_round.status != GameStatus.COMPLETED:
