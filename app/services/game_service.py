@@ -1,5 +1,3 @@
-from datetime import datetime, timezone
-
 from app.models.game_session import GameSession
 from app.services.database import supabase
 from app.utils.status import GameStatus
@@ -14,7 +12,7 @@ async def create_game(display_name: str, user_id=None):
             .insert({
                 "user_id": user_id,
                 "display_name": display_name,
-                "active": True
+                "active": True,
             }).execute())
 
         game_id = response.data[0]["id"]
@@ -37,12 +35,6 @@ async def update_game(game: GameSession):
 
     active = game.status == GameStatus.ACTIVE
 
-    completed_at = (
-        None
-        if active
-        else datetime.now(timezone.utc).isoformat()
-    )
-
     try:
         supabase.table("games").update({
             "current_round_number": (
@@ -52,7 +44,8 @@ async def update_game(game: GameSession):
             ),
             "total_score": game.total_score,
             "active": active,
-            "completed_at": completed_at
+            "started_at": game.started_at.isoformat(),
+            "completed_at": game.completed_at.isoformat()
         }).eq("id", game.id).execute()
 
         print(f"Game with game_id: {game.id} updated in Database")

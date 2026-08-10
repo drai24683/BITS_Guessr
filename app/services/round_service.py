@@ -43,7 +43,9 @@ async def update_round(round: Round):
             "guess_lng": round.guess[1] if round.guess else None,
             "score": round.score,
             "distance": round.distance,
-            "active": active
+            "active": active,
+            "started_at": round.started_at.isoformat(),
+            "completed_at": round.completed_at.isoformat()
         }).eq("id", round.id).execute()
 
         print(

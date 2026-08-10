@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 import random
 from app.utils.status import GameStatus
 from app.models.challenge import Challenge
@@ -15,6 +16,8 @@ class GameSession:
         self.total_score = 0
         self.challenges = []
         self.status = GameStatus.NOT_STARTED
+        self.started_at = None
+        self.completed_at = None
 
     def generate_challenge(self):
         challenge = random.choice(self.challenges)
@@ -60,7 +63,9 @@ class GameSession:
         if self.status != GameStatus.NOT_STARTED:
             return
         self.status = GameStatus.ACTIVE
+        self.started_at = datetime.now(UTC)
         self.next_round()
 
     def end_game(self):
         self.status = GameStatus.COMPLETED
+        self.completed_at = datetime.now(UTC)

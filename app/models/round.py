@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 from math import cos, pi
 from app.models.challenge import Challenge
 from app.utils.status import GameStatus
@@ -16,6 +17,8 @@ class Round:
         self.challenge = challenge
         self.guess = None
         self.status = GameStatus.NOT_STARTED
+        self.started_at = None
+        self.completed_at = None
 
     def submit_guess(self, lat, lng):
         self.guess = tuple([lat, lng])
@@ -35,6 +38,7 @@ class Round:
     
     def start_round(self):
         self.status = GameStatus.ACTIVE
+        self.started_at = datetime.now(UTC)
 
     def end_round(self):
         if self.guess is None:
@@ -42,3 +46,4 @@ class Round:
         self.calculate_distance()
         self.calculate_score()
         self.status = GameStatus.COMPLETED
+        self.completed_at = datetime.now(UTC)
