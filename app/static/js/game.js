@@ -30,13 +30,14 @@
     submitBtn.focus();
 
     map = L.map("map").setView(                         // render map
-        [15.391514, 73.879034],
+        [15.391514, 73.875034],
         15
     );
 
     L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     ).addTo(map);
+    map.attributionControl.setPrefix(false); 
 
     map.on("click", handleMapClick);
 

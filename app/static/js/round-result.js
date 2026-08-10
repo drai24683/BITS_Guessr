@@ -51,6 +51,8 @@
     L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     ).addTo(map);
+    map.attributionControl.setPrefix(false); 
+    
     const guessMarker = L.marker(
         [GUESS_LAT, GUESS_LNG],
         { icon: guessIcon }

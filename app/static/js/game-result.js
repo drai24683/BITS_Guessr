@@ -7,6 +7,7 @@
     L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     ).addTo(map);
+    map.attributionControl.setPrefix(false);
 
     const bounds = [];
 

@@ -193,6 +193,16 @@ button{
 
 }
 
+#nextBtn:disabled{
+
+    background:#B8B8B8;
+
+    color:white;
+
+    cursor:not-allowed;
+
+}
+
 
 /* ---------- Home ---------- */
 
@@ -504,7 +514,11 @@ input:focus{
 
     right:30px;
 
-    background:none;
+    background-color:rgba(255,255,255,.5);
+
+    padding: 6px 7px;
+    
+    border-radius:50px;
 
     z-index:1000;
 
@@ -592,6 +606,13 @@ input:focus{
     }
 
     /* ---------- Info ---------- */
+
+    #infoBtn img{
+
+        height:24px;
+
+        width:24px;
+    }
 
     #infoBtn{
 

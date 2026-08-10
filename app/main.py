@@ -11,23 +11,8 @@ from app.services.challenge_service import get_available_challenges
 from app.utils.status import GameStatus
 
 
-challenges_cache = []
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    global challenges_cache
-
-    challenges_cache = await get_available_challenges()
-
-    if not challenges_cache:
-        raise RuntimeError("No challenges available.")
-
-    print(f"Loaded {len(challenges_cache)} challenges.")
-
-    yield
-
-
-app = FastAPI(lifespan=lifespan)
+app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
@@ -99,9 +84,15 @@ async def start_game(request: Request, player_name: str = Form(...)):
                 url="/game",
                 status_code=303
             )
+        
+    challenges = await get_available_challenges()
+    if not challenges:
+            raise RuntimeError("No challenges available.")
+    
+    print(f"Loaded {len(challenges)} challenges.")
 
     game = GameSession(Player(player_name))
-    game.challenges = challenges_cache.copy()
+    game.challenges = challenges.copy()
 
     store_game(request, game)
 

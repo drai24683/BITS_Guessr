@@ -29,7 +29,7 @@ class Round:
     def calculate_score (self):
         score_distance = max(0,self.distance-20)
         ratio = min(max(score_distance/self.MAX_DISTANCE, 0), 1)
-        self.score = int(self.MAX_SCORE * (1 - ratio) ** 2.5)
+        self.score = int(self.MAX_SCORE * (1 - ratio) ** 3)
         return self.score
     
     def start_round(self):

@@ -16,3 +16,6 @@ TORE.md
 
 # macOS
 .DS_Store
+
+#env
+.env
