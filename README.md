@@ -35,6 +35,7 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 - 🖼️ Challenge images hosted using Supabase Storage
 - 🔀 Active/inactive challenge management without changing challenge IDs
 - 🆕 Fresh challenge data loaded from the database whenever a new game starts
+- 💾 Completed guest games and rounds persisted to Supabase PostgreSQL
 - 🖥️ Server-side rendering using FastAPI and Jinja2
 
 ---
@@ -73,9 +74,11 @@ The application uses Supabase as the persistent source of truth for challenge me
 
 When a new game starts, the backend queries Supabase for the currently available challenges. Each game receives its own copy of the challenge list, so changes to the challenge database do not affect games that are already in progress.
 
+Guest game state is kept in the server's runtime cache while the game is in progress. Once a guest game is completed, the game and its rounds are persisted to Supabase PostgreSQL.
+
 The `active` field determines whether a challenge is available for new games. Inactive challenges remain in the database so that challenge IDs remain stable and existing references are not affected.
 
-```
+```text
 Google Sheets
      │
      ▼
@@ -98,6 +101,15 @@ Supabase DB    Supabase Storage
              │
              ▼
        Game Session
+             │
+             ▼
+       Runtime Cache
+             │
+             ▼
+      Completed Game
+             │
+             ▼
+       Supabase DB
 ```
 
 ---
@@ -106,7 +118,7 @@ Supabase DB    Supabase Storage
 
 New challenges follow this general workflow:
 
-```
+```text
 Google Form
      │
      ▼
@@ -129,9 +141,46 @@ Inactive challenges are still migrated and stored. Their `active` status is used
 
 ---
 
+## Game Persistence
+
+Guest games are kept in the server's runtime cache while they are being played.
+
+Each browser receives a `session_id` cookie which is used to associate the browser with its active `GameSession`.
+
+```text
+Browser
+   │
+   ▼
+session_id
+   │
+   ▼
+Runtime Game Cache
+   │
+   ▼
+GameSession
+   │
+   ├── Round 1
+   ├── Round 2
+   ├── Round 3
+   ├── Round 4
+   └── Round 5
+   │
+   ▼
+Game Completed
+   │
+   ▼
+Supabase PostgreSQL
+```
+
+Guest games are not written to the database during normal gameplay. Once a game is completed, the application creates the game record and its round records in Supabase, then stores the final guesses, scores, distances, and game status.
+
+Database-generated IDs are assigned to games and rounds when they are persisted. Runtime game state does not depend on a database ID until persistence occurs.
+
+---
+
 ## Installation
 
-```
+```bash
 git clone https://github.com/drai24683/BITSGuessr.git
 cd BITSGuessr
 
@@ -150,7 +199,7 @@ uvicorn app.main:app --reload
 
 Open your browser and visit:
 
-```
+```text
 http://127.0.0.1:8000
 ```
 
@@ -164,7 +213,7 @@ Configure the required Supabase project URL and API credentials through environm
 
 ## Project Structure
 
-```
+```text
 BITSGuessr/
 │
 ├── app/
@@ -174,8 +223,8 @@ BITSGuessr/
 │   ├── models/
 │   │   ├── challenge.py
 │   │   ├── game_session.py
-│   │   ├── player.py
-│   │   └── round.py
+│   │   ├── round.py
+│   │   └── user.py
 │   │
 │   ├── scripts/
 │   │   ├── migrate_challenges.py
@@ -183,7 +232,10 @@ BITSGuessr/
 │   │
 │   ├── services/
 │   │   ├── challenge_service.py
-│   │   └── database.py
+│   │   ├── database.py
+│   │   ├── game_service.py
+│   │   ├── round_service.py
+│   │   └── user_service.py
 │   │
 │   ├── static/
 │   │   ├── css/
@@ -206,7 +258,7 @@ BITSGuessr/
 
 ## Database
 
-BITSGuessr currently uses Supabase PostgreSQL for persistent challenge data.
+BITSGuessr uses Supabase PostgreSQL for persistent application data.
 
 The database contains the following core tables:
 
@@ -217,6 +269,8 @@ Stores registered player accounts.
 ### `games`
 
 Stores games associated with players, including game status, score, and progress.
+
+Completed guest games are also stored in this table.
 
 ### `rounds`
 
@@ -234,9 +288,11 @@ The database schema is designed to support persistent games, player statistics, 
 
 ### Phase 2 — Persistence
 
-- [ ] Persistent game storage
-- [ ] Persist individual rounds
-- [ ] Resume active games after server restart
+- [x] Persistent challenge storage
+- [x] Persistent completed guest games
+- [x] Persistent guest rounds
+- [ ] Persist active user games during gameplay
+- [ ] Resume active user games after server restart
 - [ ] Player statistics
 - [ ] Recent games
 - [ ] Improved scoring algorithm
@@ -245,7 +301,7 @@ The database schema is designed to support persistent games, player statistics, 
 
 - [ ] User authentication
 - [ ] Registered users
-- [ ] Guest gameplay
+- [x] Guest gameplay
 - [ ] Campus leaderboard
 - [ ] Player profiles
 - [ ] Community challenge submission
@@ -277,9 +333,9 @@ Bug reports, feature requests, and general feedback are always appreciated.
 
 ## Current Limitations
 
-- Game sessions are currently stored in server memory.
-- Game progress is lost when the server restarts.
-- Games and rounds are not yet written to the database during gameplay.
+- Active game sessions are currently stored in server memory.
+- Guest game progress is lost if the server restarts before the game is completed.
+- Active user games are not yet implemented.
 - User accounts and authentication are not yet implemented.
 - Leaderboards and player statistics are not yet available.
 - Multiplayer gameplay is not yet implemented.

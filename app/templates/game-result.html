@@ -30,8 +30,8 @@ Game Result
             <span>/ 25000</span>
         </div>
 
-        <div class="player-name">
-            {{ game.player.name }}
+        <div class="display-name">
+            {{ game.display_name }}
         </div>
 
     </div>
@@ -105,10 +105,10 @@ Game Result
         <form action="/start_game" method="POST">
 
                     <input
-                        id="player_name"
+                        id="display_name"
                         type="text"
-                        name="player_name"
-                        value="{{ game.player.name }}"
+                        name="display_name"
+                        value="{{ game.display_name }}"
                         hidden
                     >
 
@@ -137,7 +137,7 @@ Game Result
         <button id="closeInfo">&times;</button>
 
         <p>
-            <i>Thanks for playing, {{ game.player.name }} :D</i>
+            <i>Thanks for playing, {{ game.display_name }} :D</i>
         </p>
 
     </div>

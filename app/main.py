@@ -4,9 +4,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import uuid
 
-from app.models.player import Player
+from app.models.user import User
 from app.models.game_session import GameSession
 from app.services.challenge_service import get_available_challenges
+from app.services.game_service import load_game, create_game, update_game
+from app.services.round_service import load_rounds, create_round, update_round
+from app.services.user_service import load_user, create_user, update_user
 from app.utils.status import GameStatus
 
 
@@ -16,7 +19,7 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
 
-games = {}          # multi browser persistence { session_id : game }
+games = {}  # runtime game cache {session_id: game}
 
 def get_game(request: Request) -> GameSession | None:
 
@@ -73,7 +76,7 @@ async def home(request: Request):
 # =========================
 
 @app.post("/start_game")
-async def start_game(request: Request, player_name: str = Form(...)):
+async def start_game(request: Request, display_name: str = Form(...)):
 
     existing_game = get_game(request)
 
@@ -90,7 +93,7 @@ async def start_game(request: Request, player_name: str = Form(...)):
     
     print(f"Loaded {len(challenges)} challenges.")
 
-    game = GameSession(Player(player_name))
+    game = GameSession(display_name)
     game.challenges = challenges.copy()
 
     store_game(request, game)
@@ -225,15 +228,29 @@ async def show_game_result(request: Request):
     if game is None:
         return RedirectResponse("/", status_code=303)
 
+    if game.id is None:
+        persisted_game = await create_game(game.display_name)
+        game.id = persisted_game.id
+
+    for round in game.rounds:
+        if round.id is None:
+            await create_round(game.id, round)
+
     rounds_json = []
 
     for round in game.rounds:
+
+        if round.id is not None:
+            await update_round(round)
+
         rounds_json.append({
-            "guess": round.guess.coordinates,
+            "guess": round.guess,
             "answer": round.challenge.coordinates,
             "score": round.score,
             "distance": round.distance,
         })
+
+    await update_game(game)
 
     return templates.TemplateResponse(
         request,

@@ -23,8 +23,8 @@ Round Result
 
         <div
             id="map"
-            data-guess-lat="{{ game.current_round.guess.coordinates[0] }}"
-            data-guess-lng="{{ game.current_round.guess.coordinates[1] }}"
+            data-guess-lat="{{ game.current_round.guess[0] }}"
+            data-guess-lng="{{ game.current_round.guess[1] }}"
             data-answer-lat="{{ game.current_round.challenge.coordinates[0] }}"
             data-answer-lng="{{ game.current_round.challenge.coordinates[1] }}">
         </div>

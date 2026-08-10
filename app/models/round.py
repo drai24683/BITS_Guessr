@@ -1,5 +1,5 @@
-from math import cos, log, pi
-from app.models.guess import Guess
+from math import cos, pi
+from app.models.challenge import Challenge
 from app.utils.status import GameStatus
 
 class Round:
@@ -8,7 +8,8 @@ class Round:
 
     MAX_DISTANCE = 1000
 
-    def __init__(self, number, challenge):
+    def __init__(self, number, challenge: Challenge):
+        self.id = None
         self.number = number
         self.score = 0
         self.distance = 0
@@ -17,10 +18,10 @@ class Round:
         self.status = GameStatus.NOT_STARTED
 
     def submit_guess(self, lat, lng):
-        self.guess = Guess(lat, lng)
+        self.guess = tuple([lat, lng])
     
     def calculate_distance(self):
-        guess_lat, guess_lng = self.guess.coordinates
+        guess_lat, guess_lng = self.guess
         challenge_lat, challenge_lng = self.challenge.coordinates
         delta_lat, delta_lng = ((guess_lat - challenge_lat)*pi/180, (guess_lng - challenge_lng)*cos(challenge_lat*pi/180)*pi/180)
         self.distance = float(f"{((delta_lat**2 + delta_lng**2)**0.5)*6371000:.2f}")
