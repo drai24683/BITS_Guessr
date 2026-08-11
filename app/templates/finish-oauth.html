@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+Finish Setup
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="homeCard">
+
+    <h2>Welcome to BITSGuessr</h2>
+
+    <p class="info-text">
+        One last thing before you get started.
+    </p>
+
+    <form action="/finish_oauth" method="POST">
+
+        <label for="username" class="enterName">
+            username
+        </label>
+
+        <input
+            id="username"
+            type="text"
+            name="username"
+            placeholder="choose_your_username"
+            required
+            autofocus
+        >
+
+        <label for="display_name" class="enterName">
+            display name
+        </label>
+
+        <input
+            id="display_name"
+            type="text"
+            name="display_name"
+            placeholder="what_should_people_call_you?"
+            required
+        >
+
+        <button id="startBtn" type="submit">
+            Continue
+        </button>
+
+    </form>
+
+    <div class="signature">
+        ~made by Duck
+    </div>
+
+</div>
+
+{% endblock %}

@@ -19,8 +19,8 @@ async def create_game(display_name: str, user_id=None):
 
         game = GameSession(
             display_name,
-            game_id,
-            user_id
+            user_id=user_id,
+            game_id=game_id
         )
 
         print(f"Game created with game_id: {game_id}")
@@ -74,8 +74,8 @@ async def load_game(game_id):
 
         game = GameSession(
             data["display_name"],
-            data["id"],
-            data["user_id"]
+            user_id=data["user_id"],
+            game_id=data["id"]
         )
 
         game.total_score = data["total_score"]

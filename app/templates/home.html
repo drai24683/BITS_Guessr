@@ -14,38 +14,27 @@ Home
 
 <div class="homeCard">
 
-    <h2>Welcome to BITSGuessr</h2>
+    <h2>Hey {{ user.display_name }}</h2>
 
     <p class="info-text">How elite is your campus ball?</p>
 
-    <div class="login-layout">
-        <form action="/start_game" method="POST">
+    <form action="/start_game" method="POST">
 
-            <label for="display_name" class="enterName">
-                name
-            </label>
+        <button id="startBtn" type="submit" autofocus>
+            Start Game
+        </button>
 
-            <input
-                id="display_name"
-                type="text"
-                name="display_name"
-                placeholder="username_v4_final_..._?"
-                required
-            >
+    </form>
 
-            <button id="startBtn" type="submit" autofocus>
-                Play as guest
-            </button>
-        </form>
-        <p>--------------------------------------------------------------------------</p>
-        <form action="/login" method="GET">
+    <p>---------------------------------------------------------------------</p>
 
-            <button id="loginBtn" type="submit" autofocus>
-                Login
-            </button>
+    <form action="/" method="GET">
 
-        </form>
-    </div>
+        <button id="logoutBtn" type="submit" autofocus>
+            Logout
+        </button>
+
+    </form>
 
     <div class="signature">
         ~made by Duck

@@ -133,6 +133,24 @@ button{
 
 }
 
+/* ---------- Start ---------- */
+
+#loginBtn,#logoutBtn{
+
+    background:var(--sky);
+
+    color:white;
+
+}
+
+#loginBtn,#logoutBtn
+:hover{
+
+    filter:brightness(1.05);
+
+    transform:translateY(-2px);
+
+}
 
 /* ---------- Submit ---------- */
 

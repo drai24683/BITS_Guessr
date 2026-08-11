@@ -6,7 +6,7 @@ from app.models.round import Round
 
 class GameSession:
     MAX_ROUNDS = 5 
-    def __init__(self, display_name, game_id = None, user_id = None):
+    def __init__(self, display_name, user_id = None,  game_id = None):
         self.id = game_id
         self.display_name = display_name
         self.user_id = user_id

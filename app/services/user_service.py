@@ -2,15 +2,21 @@ from app.models.user import User
 from app.services.database import supabase
 
 
-async def create_user(username: str, display_name: str):
-
+async def create_user(
+    user_id,
+    username: str,
+    display_name: str,
+    email: str
+):
     try:
         response = (
             supabase
             .table("users")
             .insert({
+                "id": user_id,
                 "username": username,
-                "display_name": display_name
+                "display_name": display_name,
+                "email": email
             })
             .execute()
         )
@@ -20,10 +26,13 @@ async def create_user(username: str, display_name: str):
         user = User(
             data["id"],
             data["username"],
-            data["display_name"]
+            data["display_name"],
+            data["email"]
         )
 
-        print(f"User created with user_id: {user.id}")
+        print(
+            f"User created with user_id: {user.id}"
+        )
 
         return user
 
@@ -33,7 +42,7 @@ async def create_user(username: str, display_name: str):
         ) from e
 
 
-async def load_user(user_id: int):
+async def load_user(user_id):
 
     try:
         response = (
@@ -41,19 +50,28 @@ async def load_user(user_id: int):
             .table("users")
             .select("*")
             .eq("id", user_id)
-            .single()
             .execute()
         )
 
-        data = response.data
+        if not response.data:
+            print(
+                f"No user found with user_id: {user_id}"
+            )
+            return None
+
+        data = response.data[0]
 
         user = User(
             data["id"],
             data["username"],
-            data["display_name"]
+            data["display_name"],
+            data["email"]
         )
 
-        print(f"User with user_id: {user_id} fetched from database")
+        print(
+            f"User with user_id: {user_id} "
+            f"fetched from database"
+        )
 
         return user
 
