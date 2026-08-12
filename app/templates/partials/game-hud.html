@@ -21,9 +21,7 @@
         </span>
 
         <span class="hud-value">
-
-                +{{ game.current_round.score }}
-
+            +{{ game.current_round.score }}
         </span>
 
         {% endif %}
@@ -51,40 +49,30 @@
         </span>
 
         <span class="hud-value">
-
-                {{ game.current_round.distance }} m
-
+            {{ game.current_round.distance }} m
         </span>
 
         {% endif %}
 
     </div>
 
-    {% if false %}
-
     <div class="hud-section">
 
-        <span class="hud-label">
-            Timer
-        </span>
-
-        <span class="hud-value">
-            --
-        </span>
-
-    </div>
-
-    {% endif %}
-
-    <div class="hud-section">
-
-        <form id="homeForm" action="/" method="GET">
+        <form
+            id="homeForm"
+            {% if game.user_id %}
+                action="/home"
+            {% else %}
+                action="/"
+            {% endif %}
+            method="GET"
+        >
 
             <button
                 class="hud-button"
                 type="submit">
 
-                {{ game.display_name}} 🦆
+                {{ game.display_name }} 🦆
 
             </button>
 

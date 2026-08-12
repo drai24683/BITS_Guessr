@@ -16,43 +16,73 @@ Home
 
     <h2>Welcome to BITSGuessr</h2>
 
-    <p class="info-text">How elite is your campus ball?</p>
+    <p id="homeDesc" class="homeDesc">How elite is your campus ball?</p>
 
     <div class="login-layout">
-        <form action="/start_game" method="POST">
 
-            <label for="display_name" class="enterName">
-                name
-            </label>
+        <button
+            id="guestBtn"
+            type="button"
+            class="guest-btn"
+        >
+            Play as guest
+        </button>
+
+        <br>
+
+        <form
+            id="loginForm"
+            action="/start_game"
+            method="POST"
+            class="guest-form hidden"
+        >
 
             <input
                 id="display_name"
                 type="text"
                 name="display_name"
-                placeholder="username_v4_final_..._?"
+                placeholder="WHAT IS YOUR NAME!?"
                 required
             >
 
-            <button id="startBtn" type="submit" autofocus>
-                Play as guest
+            <button
+                id="startBtn"
+                type="submit"
+            >
+                Start Game
             </button>
+
         </form>
-        <p>--------------------------------------------------------------------------</p>
+
+        <br>
+
         <form action="/login" method="GET">
 
-            <button id="loginBtn" type="submit" autofocus>
+            <button
+                id="loginBtn"
+                type="submit"
+            >
                 Login
             </button>
 
         </form>
+
     </div>
+
+    <p style="margin-top:40px; color:var(--text-light)">
+        Release 2.1 - New Deployment <br>
+        Accounts and Databse added, with more features otw. <br>
+        PLEASE dm if you find bugs, which you will, <br>
+        and help expand the coverage by adding your own challenges :D
+    </p>
 
     <div class="signature">
         ~made by Duck
     </div>
 
 </div>
-<button id="infoBtn"><img class="infoImg" src="/static/images/info.png" alt="info box" height="32px" width="32px"> </button>
+
+<button id="infoBtn"><img src="/static/images/info.png" alt="info box" height="32px" width="32px"> </button>
 
 <div id="infoModal" class="hidden">
 
@@ -133,8 +163,9 @@ Home
                 Z
             </h1>
 
-            <p>
-                <i>Divyanshu Rai</i>
+            <p style="text-align:end;">
+                <i>Divyanshu Rai</i><br>
+                <i><small>August 8th, 2026</small></i>
             </p>
 
         </div>

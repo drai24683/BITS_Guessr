@@ -6,46 +6,59 @@ Finish Setup
 
 {% block head %}
 
+<link rel="stylesheet" href="/static/css/index.css">
+
 {% endblock %}
 
 {% block content %}
 
 <div class="homeCard">
 
-    <h2>Welcome to BITSGuessr</h2>
+    <h2>Welcome back to BITSGuessr</h2>
 
     <p class="info-text">
-        One last thing before you get started.
+        One last thing before you get started
     </p>
 
     <form action="/finish_oauth" method="POST">
 
-        <label for="username" class="enterName">
-            username
+        {% if error %}
+            <p class="enterName-label">{{ error }}</p>
+        {% else %}
+        <label for="username" class="enterName-label">
+            Username
         </label>
+        {% endif %}
 
         <input
             id="username"
+            class="enterName"
             type="text"
             name="username"
-            placeholder="choose_your_username"
+            {% if error %}
+                placeholder="Try some else"
+            {% else %}
+                placeholder="has to be unique"
+            {% endif %}
             required
             autofocus
         >
 
-        <label for="display_name" class="enterName">
-            display name
+        <label for="display_name" class="enterNick-label">
+            Nick
         </label>
 
         <input
             id="display_name"
+            class="enterNick"
             type="text"
             name="display_name"
-            placeholder="what_should_people_call_you?"
+            value="{{ display_name or '' }}"
+            placeholder="If it aint illegal"
             required
         >
 
-        <button id="startBtn" type="submit">
+        <button id="loginBtn" type="submit">
             Continue
         </button>
 

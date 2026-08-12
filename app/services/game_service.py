@@ -45,7 +45,11 @@ async def update_game(game: GameSession):
             "total_score": game.total_score,
             "active": active,
             "started_at": game.started_at.isoformat(),
-            "completed_at": game.completed_at.isoformat()
+            "completed_at": (
+                game.completed_at.isoformat()
+                if game.completed_at is not None
+                else None
+            )
         }).eq("id", game.id).execute()
 
         print(f"Game with game_id: {game.id} updated in Database")

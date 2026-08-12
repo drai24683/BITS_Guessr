@@ -65,10 +65,7 @@ def store_game(
 # Favicon
 # =========================
 
-@app.get(
-    "/favicon.ico",
-    include_in_schema=False
-)
+@app.get("/favicon.ico", include_in_schema=False)
 async def favicon() -> FileResponse:
 
     return FileResponse(
@@ -83,9 +80,7 @@ async def favicon() -> FileResponse:
 @app.get("/",response_class=HTMLResponse)
 async def index(request: Request):
 
-    session_id = request.cookies.get(
-        "session_id"
-    )
+    session_id = request.cookies.get("session_id")
 
     if session_id is None:
         session_id = str(uuid.uuid4())
@@ -117,14 +112,15 @@ async def index(request: Request):
 @app.get("/home", response_class=HTMLResponse)
 async def home(request: Request):
 
-    session_id = request.cookies.get("session_id")
+    auth_user = get_current_user(request)
 
-    if session_id is None:
-        session_id = str(uuid.uuid4())
+    if auth_user is None:
+        return RedirectResponse(
+            "/",
+            status_code=303
+        )
 
-
-    user_id = get_current_user(request).id
-    user = await load_user(user_id)
+    user = await load_user(auth_user.id)
 
     response = templates.TemplateResponse(
         request=request,
@@ -253,14 +249,27 @@ async def auth_callback(
         ) from e
 
 
+@app.post("/logout")
+async def logout():
+
+    response = RedirectResponse(
+        "/",
+        status_code=303
+    )
+
+    response.delete_cookie("access_token", path="/")
+    response.delete_cookie("refresh_token", path="/")
+
+    print("LOGOUT: deleting authentication cookies")
+
+    return response
+
+
 # =========================
 # Finish OAuth
 # =========================
 
-@app.get(
-    "/finish_oauth",
-    response_class=HTMLResponse
-)
+@app.get("/finish_oauth", response_class=HTMLResponse)
 async def show_finish_oauth(
     request: Request
 ):
@@ -273,9 +282,7 @@ async def show_finish_oauth(
             status_code=303
         )
 
-    existing_user = await load_user(
-        auth_user.id
-    )
+    existing_user = await load_user(auth_user.id)
 
     if existing_user is not None:
         return RedirectResponse(
@@ -314,81 +321,91 @@ async def finish_oauth(
         )
 
         return RedirectResponse(
-            "/",
+            "/home",
             status_code=303
         )
 
     except Exception as e:
+
+        error = str(e)
+
+        if "duplicate key" in error and "username" in error:
+            return templates.TemplateResponse(
+                request=request,
+                name="finish-oauth.html",
+                context={
+                    "error": "That username is already taken.",
+                    "username": username,
+                    "display_name": display_name
+                },
+                status_code=400
+            )
+
         raise RuntimeError(
             f"Failed to finish account setup: {e}"
         ) from e
-
 
 # =========================
 # Start Game
 # =========================
 
 @app.post("/start_game")
-async def start_game(
-    request: Request,
-    display_name: str | None = Form(None)
-):
-
-    existing_game = get_game(request)
-
-    if existing_game is not None:
-        if existing_game.status == GameStatus.ACTIVE:
-            return RedirectResponse(
-                "/game",
-                status_code=303
-            )
+async def start_game(request: Request, display_name: str | None = Form(None)):
 
     auth_user = get_current_user(request)
 
     user = None
 
     if auth_user is not None:
-        user = await load_user(
-            auth_user.id
-        )
+        user = await load_user(auth_user.id)
+
+    existing_game = get_game(request)
+
+    if user and existing_game is not None:
+        if (existing_game.user_id == user.id 
+            and existing_game.status == GameStatus.ACTIVE):
+                    return RedirectResponse(
+                        "/game",
+                        status_code=303
+                    )
+        existing_game = None
+    else:
+        if (existing_game is not None
+            and existing_game.user_id is None 
+            and existing_game.status == GameStatus.ACTIVE):
+            return RedirectResponse(
+                "/game",
+                status_code=303
+            )
 
     challenges = await get_available_challenges()
 
     if not challenges:
-        raise RuntimeError(
-            "No challenges available."
-        )
+        raise RuntimeError("No challenges available.")
 
-    print(
-        f"Loaded {len(challenges)} challenges."
-    )
+    print(f"Loaded {len(challenges)} challenges.")
 
     if user is not None:
-
-        game = GameSession(
-            user.display_name,
-            user_id=user.id
-        )
+        game = GameSession(user.display_name, user_id=user.id)
 
     else:
-
         if not display_name:
-            raise RuntimeError(
-                "Guest display name is required."
-            )
-
-        game = GameSession(
-            display_name
-        )
+            raise RuntimeError("Guest display name is required.")
+        game = GameSession(display_name)
 
     game.challenges = challenges.copy()
 
-    store_game(
-        request,
-        game
-    )
-
     game.start_game()
+
+    if game.user_id is not None:
+        # create new game entry in DB
+        persisted_game = await create_game(game.display_name, game.user_id)
+        game.id = persisted_game.id
+        # create first round entry in DB
+        persisted_round = await create_round(game.id, game.current_round)
+        game.current_round.id = persisted_round.id
+
+    store_game(request, game)
 
     return RedirectResponse(
         "/game",
@@ -400,10 +417,7 @@ async def start_game(
 # Game
 # =========================
 
-@app.get(
-    "/game",
-    response_class=HTMLResponse
-)
+@app.get("/game", response_class=HTMLResponse)
 async def show_game(request: Request):
 
     game = get_game(request)
@@ -429,48 +443,40 @@ async def show_game(request: Request):
 # =========================
 
 @app.post("/round_result")
-async def round_result(
-    request: Request,
-    lat: float = Form(...),
-    lng: float = Form(...)
-):
+async def round_result(request: Request, lat: float = Form(...), lng: float = Form(...)):
 
     game = get_game(request)
 
     if game is None:
         return RedirectResponse(
-            "/",
+            "/", 
             status_code=303
         )
 
     if game.current_round is None:
         return RedirectResponse(
-            "/",
+            "/", 
             status_code=303
         )
 
-    if (
-        game.current_round.status
-        == GameStatus.COMPLETED
-    ):
+    if (game.current_round.status == GameStatus.COMPLETED):
         return RedirectResponse(
             "/round_result",
             status_code=303
         )
 
-    game.submit_guess(
-        lat,
-        lng
-    )
+    game.submit_guess(lat, lng)
 
-    if (
-        game.current_round.status
-        != GameStatus.COMPLETED
-    ):
+    if (game.current_round.status != GameStatus.COMPLETED):
         return HTMLResponse(
             content="Round not completed.",
             status_code=400
-        )
+            )
+
+    # update round and game in DB
+    if game.user_id is not None:
+        await update_round(game.current_round)
+        await update_game(game)
 
     return RedirectResponse(
         "/round_result",
@@ -478,13 +484,8 @@ async def round_result(
     )
 
 
-@app.get(
-    "/round_result",
-    response_class=HTMLResponse
-)
-async def show_round_result(
-    request: Request
-):
+@app.get("/round_result", response_class=HTMLResponse)
+async def show_round_result(request: Request):
 
     game = get_game(request)
 
@@ -531,10 +532,7 @@ async def next_round(request: Request):
             status_code=303
         )
 
-    if (
-        game.current_round.status
-        != GameStatus.COMPLETED
-    ):
+    if (game.current_round.status != GameStatus.COMPLETED):
         return RedirectResponse(
             "/game",
             status_code=303
@@ -543,10 +541,28 @@ async def next_round(request: Request):
     game.next_round()
 
     if game.status == GameStatus.COMPLETED:
+        # create and update guest games
+        if game.id is None:
+            persisted_game = await create_game(game.display_name, game.user_id)
+            game.id = persisted_game.id
+
+            for round in game.rounds:
+                persisted_round = await create_round(game.id, round)
+                round.id = persisted_round.id
+                await update_round(round)
+
+        # update all games
+        await update_game(game)
+
         return RedirectResponse(
             "/game_result",
             status_code=303
         )
+
+    # create new round entry in DB
+    if game.user_id is not None:
+        persisted_round = await create_round(game.id, game.current_round)
+        game.current_round.id = persisted_round.id
 
     return RedirectResponse(
         "/game",
@@ -558,13 +574,8 @@ async def next_round(request: Request):
 # Game Result
 # =========================
 
-@app.get(
-    "/game_result",
-    response_class=HTMLResponse
-)
-async def show_game_result(
-    request: Request
-):
+@app.get("/game_result", response_class=HTMLResponse)
+async def show_game_result(request: Request):
 
     game = get_game(request)
 
@@ -574,30 +585,9 @@ async def show_game_result(
             status_code=303
         )
 
-    if game.id is None:
-
-        persisted_game = await create_game(
-            game.display_name,
-            game.user_id
-        )
-
-        game.id = persisted_game.id
-
-    for round in game.rounds:
-
-        if round.id is None:
-            await create_round(
-                game.id,
-                round
-            )
-
     rounds_json = []
 
     for round in game.rounds:
-
-        if round.id is not None:
-            await update_round(round)
-
         rounds_json.append({
             "guess": round.guess,
             "answer": round.challenge.coordinates,
@@ -605,13 +595,28 @@ async def show_game_result(
             "distance": round.distance,
         })
 
-    await update_game(game)
-
     return templates.TemplateResponse(
         request,
         "game-result.html",
         {
             "game": game,
             "rounds_json": rounds_json,
+        }
+    )
+
+# =========================
+# Submissions
+# =========================
+
+@app.get("/submissions", response_class=HTMLResponse)
+async def submissions(request: Request):
+    auth_user = get_current_user(request)
+    user = await load_user(auth_user.id)
+
+    return templates.TemplateResponse(
+        request,
+        "submissions.html",
+        {
+            "user": user,
         }
     )

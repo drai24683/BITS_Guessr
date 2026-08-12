@@ -13,6 +13,7 @@
     const infoBtn = document.getElementById("infoBtn");
     const infoModal = document.getElementById("infoModal");
     const closeInfo = document.getElementById("closeInfo");
+    const display_name = document.getElementById("display_name");
 
     infoBtn.addEventListener("click", () => {
 
@@ -44,11 +45,11 @@
 
     window.addEventListener("keydown", (event) => {
 
-        if (event.key.toLowerCase() === "i") {
+        if (event.key.toLowerCase() === "i" && document.activeElement !== display_name) {
 
             infoModal.classList.toggle("hidden");
 
-        }
+            }
 
     });
 

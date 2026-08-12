@@ -16,7 +16,7 @@ Home
 
     <h2>Hey {{ user.display_name }}</h2>
 
-    <p class="info-text">How elite is your campus ball?</p>
+    <h3 class="homeDesc">Ready. Steady. Guess!</h3>
 
     <form action="/start_game" method="POST">
 
@@ -25,10 +25,8 @@ Home
         </button>
 
     </form>
-
-    <p>---------------------------------------------------------------------</p>
-
-    <form action="/" method="GET">
+    <br>
+    <form action="/logout" method="POST">
 
         <button id="logoutBtn" type="submit" autofocus>
             Logout
@@ -41,7 +39,7 @@ Home
     </div>
 
 </div>
-<button id="infoBtn"><img class="infoImg" src="/static/images/info.png" alt="info box" height="32px" width="32px"> </button>
+<button id="infoBtn"><img src="/static/images/info.png" alt="info box" height="32px" width="32px"> </button>
 
 <div id="infoModal" class="hidden">
 
@@ -122,8 +120,9 @@ Home
                 Z
             </h1>
 
-            <p>
-                <i>Divyanshu Rai</i>
+            <p style="text-align:end;">
+                <i>Divyanshu Rai</i><br>
+                <i><small>August 8th, 2026</small></i>
             </p>
 
         </div>

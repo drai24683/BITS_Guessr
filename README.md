@@ -10,7 +10,7 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 
 ## Live Demo
 
-🌐 [https://bitsguessr.onrender.com](https://bitsguessr.onrender.com)
+🌐 [https://bits-guessr.onrender.com](https://bits-guessr.onrender.com)
 
 ---
 
@@ -35,7 +35,11 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 - 🖼️ Challenge images hosted using Supabase Storage
 - 🔀 Active/inactive challenge management without changing challenge IDs
 - 🆕 Fresh challenge data loaded from the database whenever a new game starts
+- 👤 Google OAuth authentication through Supabase Auth
+- 🪪 Registered user accounts with usernames and display names
+- 👤 User-specific game persistence
 - 💾 Completed guest games and rounds persisted to Supabase PostgreSQL
+- 🔐 User and guest gameplay handled through the same game system
 - 🖥️ Server-side rendering using FastAPI and Jinja2
 
 ---
@@ -57,124 +61,15 @@ BITSGuessr challenges players to identify locations around the BITS Goa campus f
 - Leaflet.js
 - OpenStreetMap
 
-### Data & Storage
+### Authentication & Data
 
+- Supabase Auth
+- Google OAuth
 - Supabase PostgreSQL
 - Supabase Storage
 - Google Sheets
 - Google Apps Script
 
----
-
-## How It Works
-
-Challenge submissions are maintained through a Google Sheet and exposed through a Google Apps Script web endpoint.
-
-The application uses Supabase as the persistent source of truth for challenge metadata. Challenge images are stored separately in Supabase Storage.
-
-When a new game starts, the backend queries Supabase for the currently available challenges. Each game receives its own copy of the challenge list, so changes to the challenge database do not affect games that are already in progress.
-
-Guest game state is kept in the server's runtime cache while the game is in progress. Once a guest game is completed, the game and its rounds are persisted to Supabase PostgreSQL.
-
-The `active` field determines whether a challenge is available for new games. Inactive challenges remain in the database so that challenge IDs remain stable and existing references are not affected.
-
-```text
-Google Sheets
-     │
-     ▼
-Google Apps Script
-     │
-     ▼
-Challenge Migration
-     │
-     ├───────────────┐
-     ▼               ▼
-Supabase DB    Supabase Storage
-(metadata)         (images)
-     │               │
-     └───────┬───────┘
-             ▼
-     Challenge Service
-             │
-             ▼
-        New Game
-             │
-             ▼
-       Game Session
-             │
-             ▼
-       Runtime Cache
-             │
-             ▼
-      Completed Game
-             │
-             ▼
-       Supabase DB
-```
-
----
-
-## Challenge Data Pipeline
-
-New challenges follow this general workflow:
-
-```text
-Google Form
-     │
-     ▼
-Google Sheets
-     │
-     ▼
-Google Apps Script API
-     │
-     ▼
-Migration Script
-     │
-     ├── Challenge metadata → Supabase PostgreSQL
-     │
-     └── Challenge image    → Supabase Storage
-```
-
-The migration process supports incremental updates, allowing only challenges that have not yet been migrated to be inserted into the database.
-
-Inactive challenges are still migrated and stored. Their `active` status is used only when determining which challenges are available for new games.
-
----
-
-## Game Persistence
-
-Guest games are kept in the server's runtime cache while they are being played.
-
-Each browser receives a `session_id` cookie which is used to associate the browser with its active `GameSession`.
-
-```text
-Browser
-   │
-   ▼
-session_id
-   │
-   ▼
-Runtime Game Cache
-   │
-   ▼
-GameSession
-   │
-   ├── Round 1
-   ├── Round 2
-   ├── Round 3
-   ├── Round 4
-   └── Round 5
-   │
-   ▼
-Game Completed
-   │
-   ▼
-Supabase PostgreSQL
-```
-
-Guest games are not written to the database during normal gameplay. Once a game is completed, the application creates the game record and its round records in Supabase, then stores the final guesses, scores, distances, and game status.
-
-Database-generated IDs are assigned to games and rounds when they are persisted. Runtime game state does not depend on a database ID until persistence occurs.
 
 ---
 
@@ -203,11 +98,172 @@ Open your browser and visit:
 http://127.0.0.1:8000
 ```
 
+---
+
+## How It Works
+
+Challenge submissions are maintained through a Google Sheet and exposed through a Google Apps Script web endpoint.
+
+The application uses Supabase as the persistent source of truth for challenge metadata. Challenge images are stored separately in Supabase Storage.
+
+When a new game starts, the backend queries Supabase for the currently available challenges. Each game receives its own copy of the challenge list, so changes to the challenge database do not affect games that are already in progress.
+
+Registered users authenticate through Google OAuth using Supabase Auth. Once authenticated, users can create persistent games associated with their account.
+
+Guest game state is kept in the server's runtime cache while the game is in progress. Guest games are not written to the database during normal gameplay. Once a guest game is completed, the game and its rounds are persisted to Supabase PostgreSQL.
+
+The `active` field determines whether a challenge is available for new games. Inactive challenges remain in the database so that challenge IDs remain stable and existing references are not affected.
+
+```text
+Google Sheets
+     │
+     ▼
+Google Apps Script
+     │
+     ▼
+Challenge Migration
+     │
+     ├───────────────┐
+     ▼               ▼
+Supabase DB    Supabase Storage
+(metadata)         (images)
+     │               │
+     └───────┬───────┘
+             ▼
+     Challenge Service
+             │
+             ▼
+        New Game
+             │
+             ▼
+       Game Session
+             │
+       ┌─────┴─────┐
+       │           │
+   Registered     Guest
+      User        Player
+       │           │
+       ▼           ▼
+   Supabase     Runtime
+   PostgreSQL     Cache
+       │           │
+       │       Game Completed
+       │           │
+       │           ▼
+       │       Supabase DB
+       │
+       ▼
+   Persistent Game
+```
+
+---
+
+## Authentication
+
+BITSGuessr uses Google OAuth through Supabase Auth for registered accounts.
+
+The authentication flow is:
+
+```text
+User
+ │
+ ▼
+BITSGuessr Login
+ │
+ ▼
+Supabase Auth
+ │
+ ▼
+Google OAuth
+ │
+ ▼
+Supabase Auth Callback
+ │
+ ▼
+BITSGuessr /auth/callback
+ │
+ ├── Existing User
+ │       │
+ │       ▼
+ │     /home
+ │
+ └── New User
+         │
+         ▼
+    /finish_oauth
+         │
+         ▼
+   Username + Display Name
+         │
+         ▼
+       /home
+```
+
+Usernames are unique. If a username is already taken during account setup, the user is returned to the account setup page with an appropriate error message.
+
+Authentication state is maintained through the user's access token, while application-specific account information is stored in the `users` table.
+
+---
+
+## Game Persistence
+
+BITSGuessr uses different persistence strategies for registered users and guests.
+
+### Registered Users
+
+Registered users have their games persisted from the beginning of gameplay.
+
+Game and round state is updated in Supabase as gameplay progresses.
+
+This allows registered users' completed and in-progress game information to be persisted independently of the runtime session.
+
+### Guests
+
+Guest games are kept in the server's runtime cache while they are being played.
+
+Each browser receives a `session_id` cookie which is used to associate the browser with its active `GameSession`.
+
+Guest games are intentionally not written to the database while they are in progress. This prevents abandoned guest games from creating incomplete database records.
+
+Once a guest game is completed, the application creates the game record and its round records in Supabase, then stores the final guesses, scores, distances, and game status.
+
+Database-generated IDs are assigned to games and rounds when they are persisted. Runtime game state does not depend on a database ID until persistence occurs.
+
+---
+
+## Challenge Data Pipeline
+
+New challenges follow this general workflow:
+
+```text
+Google Form
+     │
+     ▼
+Google Sheets
+     │
+     ▼
+Google Apps Script API
+     │
+     ▼
+Migration Script
+     │
+     ├── Challenge metadata → Supabase PostgreSQL
+     │
+     └── Challenge image    → Supabase Storage
+```
+
+The migration process supports incremental updates, allowing only challenges that have not yet been migrated to be inserted into the database.
+
+Inactive challenges are still migrated and stored. Their `active` status is used only when determining which challenges are available for new games.
+
+
 ### Environment Variables
 
 The application requires access to the Supabase project.
 
 Configure the required Supabase project URL and API credentials through environment variables rather than committing them to the repository.
+
+OAuth configuration also requires the appropriate Google OAuth credentials and Supabase Auth configuration for the deployment environment.
 
 ---
 
@@ -264,11 +320,11 @@ The database contains the following core tables:
 
 ### `users`
 
-Stores registered player accounts.
+Stores registered player accounts, including usernames, display names, and account information associated with authenticated users.
 
 ### `games`
 
-Stores games associated with players, including game status, score, and progress.
+Stores games associated with registered players, including game status, score, progress, and completion information.
 
 Completed guest games are also stored in this table.
 
@@ -291,7 +347,7 @@ The database schema is designed to support persistent games, player statistics, 
 - [x] Persistent challenge storage
 - [x] Persistent completed guest games
 - [x] Persistent guest rounds
-- [ ] Persist active user games during gameplay
+- [x] Persist authenticated user games during gameplay
 - [ ] Resume active user games after server restart
 - [ ] Player statistics
 - [ ] Recent games
@@ -299,8 +355,8 @@ The database schema is designed to support persistent games, player statistics, 
 
 ### Phase 3 — Accounts & Community
 
-- [ ] User authentication
-- [ ] Registered users
+- [x] User authentication
+- [x] Registered users
 - [x] Guest gameplay
 - [ ] Campus leaderboard
 - [ ] Player profiles
@@ -335,8 +391,8 @@ Bug reports, feature requests, and general feedback are always appreciated.
 
 - Active game sessions are currently stored in server memory.
 - Guest game progress is lost if the server restarts before the game is completed.
-- Active user games are not yet implemented.
-- User accounts and authentication are not yet implemented.
+- Active authenticated game state depends on the current server session for gameplay continuity.
+- Active user games cannot currently be resumed after a server restart.
 - Leaderboards and player statistics are not yet available.
 - Multiplayer gameplay is not yet implemented.
 

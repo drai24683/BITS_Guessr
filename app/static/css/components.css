@@ -119,7 +119,7 @@ button{
 
 #startBtn{
 
-    background:var(--gold);
+    background:var(--sky);
 
     color:white;
 
@@ -133,11 +133,35 @@ button{
 
 }
 
-/* ---------- Start ---------- */
+/* ---------- Guest ---------- */
+
+.guest-btn {
+    background-color:var(--sky);
+    color:white;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.guest-btn:hover{
+
+    filter:brightness(1.05);
+
+    transform:translateY(-2px);
+
+}
+
+.guest-btn.hidden {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+}
+
+/* ---------- Login ---------- */
 
 #loginBtn,#logoutBtn{
 
-    background:var(--sky);
+    background:var(--gold);
 
     color:white;
 
@@ -279,7 +303,7 @@ input{
 
     font-size:16px;
 
-    color:var(--sky);
+    color:var(--red);
 
     border:2px solid #d8d8d8;
 
@@ -293,9 +317,9 @@ input{
 
 input:focus{
 
-    border-color:var(--sky);
+    border-color:var(--red);
 
-    box-shadow:0 0 0 3px rgba(116,195,235,.25);
+    box-shadow:0 0 0 3px rgba(235, 116, 116, 0.25);
 
 }
 
@@ -584,6 +608,7 @@ input:focus{
     .result-actions button,
     form button,
     #submitBtn,
+    .guest-btn,
     #nextBtn,
     #startBtn{
 

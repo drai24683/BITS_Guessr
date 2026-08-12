@@ -45,7 +45,11 @@ async def update_round(round: Round):
             "distance": round.distance,
             "active": active,
             "started_at": round.started_at.isoformat(),
-            "completed_at": round.completed_at.isoformat()
+            "completed_at": (
+                round.completed_at.isoformat()
+                if round.completed_at is not None
+                else None
+            )
         }).eq("id", round.id).execute()
 
         print(
