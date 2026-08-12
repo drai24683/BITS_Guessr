@@ -4,7 +4,7 @@
 
 BITSGuessr challenges players to identify locations around the BITS Goa campus from real photographs. Place a marker on the interactive campus map, submit your guess, and earn points based on how close you are to the actual location.
 
-> **Version:** v1.0.0
+> **Version:** v2.1
 
 ---
 
