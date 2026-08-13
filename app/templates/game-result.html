@@ -90,7 +90,15 @@ Game Result
 
     <div class="result-actions">
 
-        <form action="/" method="GET">
+        <form
+            id="homeForm"
+            {% if game.user_id %}
+                action="/home"
+            {% else %}
+                action="/"
+            {% endif %}
+            method="GET"
+        >
 
             <button
                 id="homeBtn"
