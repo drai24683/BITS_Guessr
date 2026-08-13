@@ -1,11 +1,22 @@
 import base64
 import hashlib
+import os
 import secrets
 from urllib.parse import urlencode
+
+from dotenv import load_dotenv
 from fastapi import Request
-from supabase import create_client
-from app.services.database import SUPABASE_URL, SUPABASE_KEY
-from app.services.database import supabase
+from supabase import Client, create_client
+
+load_dotenv()
+
+SUPABASE_URL = os.environ["SUPABASE_URL"]
+SUPABASE_KEY = os.environ["SUPABASE_KEY"]
+
+auth_supabase: Client = create_client(
+    SUPABASE_URL,
+    SUPABASE_KEY
+)
 
 
 def create_pkce_verifier():
@@ -43,7 +54,7 @@ def exchange_code(
     code: str,
     code_verifier: str
 ):
-    return supabase.auth.exchange_code_for_session({
+    return auth_supabase.auth.exchange_code_for_session({
         "auth_code": code,
         "code_verifier": code_verifier,
     })
@@ -60,13 +71,18 @@ def get_authenticated_user(access_token: str):
     return response.user
 
 def get_current_user(request: Request):
-    access_token = request.cookies.get("access_token")
+
+    access_token = request.cookies.get(
+        "access_token"
+    )
 
     if access_token is None:
         return None
 
     try:
-        return get_authenticated_user(access_token)
+        return get_authenticated_user(
+            access_token
+        )
 
     except Exception:
         return None
