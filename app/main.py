@@ -162,7 +162,7 @@ async def login(request: Request):
         key="auth_code_verifier",
         value=code_verifier,
         httponly=True,
-        secure=False,  # True in production
+        secure=request.url.scheme == "https",  # True in production
         samesite="lax",
         max_age=600,
     )
